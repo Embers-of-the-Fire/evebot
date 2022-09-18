@@ -1,5 +1,5 @@
 <h1 align="center">EVE BOT</h1>
-<h5 align="center"><img src="https://img.shields.io/badge/python-3.8-brightgreen.svg"> <img src="https://img.shields.io/github/languages/top/Embers-of-the-Fire/evebot.svg"></h5>
+<h5 align="center"><img src="./img/lang2.svg"> <img src="./img/lang.svg"></h5>
 
 ## 简介
 

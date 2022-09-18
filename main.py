@@ -100,7 +100,7 @@ class GuildBot(botpy.Client):
 
 async def guild_bot_start():
     async with client as c:
-        await c.start(appid="102022324", token="CNahqy40gZbst062nFOe1DNOLaA74rm2")
+        await c.start(appid="xxx", token="xxx")
 
 
 if __name__ == '__main__':

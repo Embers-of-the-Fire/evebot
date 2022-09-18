@@ -114,7 +114,6 @@ if __name__ == '__main__':
         intent = botpy.Intents(public_guild_messages=True)
         client = GuildBot(intents=intent)
         print('---Guild Bot Server Started---')
-        # client.run(appid="102022324", token="CNahqy40gZbst062nFOe1DNOLaA74rm2")
         asyncio.get_event_loop().run_until_complete(server)
         asyncio.get_event_loop().run_until_complete(guild_bot_start())
         asyncio.get_event_loop().run_forever()

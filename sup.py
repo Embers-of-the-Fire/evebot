@@ -17,6 +17,9 @@ import mplfinance as mpf
 import matplotlib as mpl
 import matplotlib.dates as mdates
 import datetime
+
+from typing import List
+
 import adm
 
 mpl.rcParams['font.sans-serif'] = ['SimHei']
@@ -2744,7 +2747,7 @@ def blpe(command: list, group_id: int, *args, **kwargs) -> dict:
                     u = {}
                     for x in b['activities']['reaction']['materials']:
                         u[x['typeID']] = float("%.2f" % (
-                                x['quantity']))
+                            x['quantity']))
                         text += '  |--{0}×{1}\n'.format(
                             x['typeID'], float(
                                 "%.2f" %
@@ -3245,7 +3248,8 @@ def acc(command: list, group_id: int, *args, **kwargs):
 def accm(command: list, group_id: int, *args, **kwargs):
     print('using accm')
     if len(command) < 2 or int(command[0]) * int(command[1]) == 0:
-        text = '用法(accm)：.accm 属性加成，实际作用时长，（脑浆衰减档次）\n例：.accm 4，7\n即：应用加成后7天+4加速器\n.accm, 5，5，3\n即：应用加成后5天+5加速器，档次3(500,000→150,000)'
+        text = '用法(accm)：.accm 属性加成，实际作用时长，（脑浆衰减档次）\n' \
+               '例：.accm 4，7\n即：应用加成后7天+4加速器\n.accm, 5，5，3\n即：应用加成后5天+5加速器，档次3(500,000→150,000)'
     else:
         plus = int(command[0])
         day = float(command[1])
@@ -3268,13 +3272,14 @@ def accm(command: list, group_id: int, *args, **kwargs):
         isk_per_point = ave_skill_m / dec
         v_worth = v_point * isk_per_point
         text = ACC_MARKET_TEXT.format(server_name='晨曦',
-                                      point_plus='+' + str(plus),
-                                      e_time=str(day) + '天',
-                                      ave_skill=format(float("%.2f" % ave_skill_m), ','),
-                                      e_point=format(dec, ','),
-                                      isk_per_point=format(float("%.2f" % isk_per_point), ','),
-                                      e_point_increase="%.2f" % v_point,
-                                      expect_worth=format(float("%.2f" % v_worth), ','))
+                                      text=ACC_MARKET_TEXT.format(server_name='晨曦',
+                                                                  point_plus='+' + str(plus),
+                                                                  e_time=str(day) + '天',
+                                                                  ave_skill=format(float("%.2f" % ave_skill_m), ','),
+                                                                  e_point=format(dec, ','),
+                                                                  isk_per_point=format(float("%.2f" % isk_per_point), ','),
+                                                                  e_point_increase="%.2f" % v_point,
+                                                                  expect_worth=format(float("%.2f" % v_worth), ',')))
     return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
         {'type': 'text', 'data': {'text': text}}]}, 'echo': 'apiCallBack'}
 
@@ -3282,7 +3287,8 @@ def accm(command: list, group_id: int, *args, **kwargs):
 def oaccm(command: list, group_id: int, *args, **kwargs):
     print('using oaccm')
     if len(command) < 2 or int(command[0]) * int(command[1]) == 0:
-        text = '用法(oaccm)：.oaccm 属性加成，实际作用时长，（脑浆衰减档次）\n例：.accm 4，7\n即：应用加成后7天+4加速器\n.accm, 5，5，3\n即：应用加成后5天+5加速器，档次3(500,000→150,000)'
+        text = '用法(oaccm)：.oaccm 属性加成，实际作用时长，（脑浆衰减档次）\n' \
+               '例：.oaccm 4，7\n即：应用加成后7天+4加速器\n.oaccm, 5，5，3\n即：应用加成后5天+5加速器，档次3(500,000→150,000)'
     else:
         plus = int(command[0])
         day = float(command[1])
@@ -3316,13 +3322,15 @@ def oaccm(command: list, group_id: int, *args, **kwargs):
         {'type': 'text', 'data': {'text': text}}]}, 'echo': 'apiCallBack'}
 
 
-def skill_expand(id_: int, c: int, level: int, fn: bool, title: bool = False):
+def skill_expand(id_: int, c: int, level: int, fn: bool, dlevel: dict, title: bool = False) -> Tuple[str, str, List[dict], dict]:
     global skill_dict, data_list, id_list, skill_base_point
     if id_ not in skill_dict.keys():
         if fn:
-            return ('    ' * c + '└ %s' % id_list[str(id_)] + '\n', '- ' + '■ ' * level + '\n', '- \n', 0) if not title else ('', '', '', 0)
+            return ('    ' * c + '└ %s' % id_list[str(id_)] + '\n', '- ' + '■ ' * level + '\n', [], dlevel)\
+                if not title else ('', '', [], dlevel)
         else:
-            return ('    ' * c + '├ %s' % id_list[str(id_)] + '\n', '- ' + '■ ' * level + '\n', '- \n', 0) if not title else ('', '', '', 0)
+            return ('    ' * c + '├ %s' % id_list[str(id_)] + '\n', '- ' + '■ ' * level + '\n', [], dlevel)\
+                if not title else ('', '', [], dlevel)
     else:
         if fn:
             n_t = '    ' * c + '└ %s' % id_list[str(id_)] + '\n' if not title else ''
@@ -3331,24 +3339,35 @@ def skill_expand(id_: int, c: int, level: int, fn: bool, title: bool = False):
             n_t = '    ' * c + '├ %s' % id_list[str(id_)] + '\n' if not title else ''
             n_l = '- ' + '■ ' * level + '\n' if not title else ''
         if 'time' in skill_dict[id_].keys():
-            p_p = skill_base_point[level] * skill_dict[id_]['time'] if not title else 0
-            n_p = '- %s\n' % format(p_p, ',') if not title else ''
+            if not title:
+                n_p = [{'skill': id_, 'level': level, 'point': skill_base_point[level] * skill_dict[id_]['time']}]
+            else:
+                n_p = []
         else:
-            n_p = '- \n' if not title else ''
-            p_p = 0
+            if not title:
+                n_p = [{'skill': 'x', 'level': 0, 'point': 0}]
+            else:
+                n_p = []
+        if id_ in dlevel.keys():
+            if level >= dlevel[id_]:
+                dlevel[id_] = level
+        else:
+            dlevel[id_] = level
         if 'skill' in skill_dict[id_].keys() and skill_dict[id_]['skill'] != []:
             for i in range(len(skill_dict[id_]['skill']) - 1):
-                n_tn, n_ln, n_pn, p_pn = skill_expand(skill_dict[id_]['skill'][i]['skillId'], c + 1, skill_dict[id_]['skill'][i]['skillLevel'], False)
+                n_tn, n_ln, n_pn, lv = skill_expand(skill_dict[id_]['skill'][i]['skillId'], c + 1, skill_dict[id_]['skill'][i]['skillLevel'],
+                                                          False, dlevel)
                 n_t += n_tn
                 n_l += n_ln
                 n_p += n_pn
-                p_p += p_pn
-            n_tn, n_ln, n_pn, p_pn = skill_expand(skill_dict[id_]['skill'][-1]['skillId'], c + 1, skill_dict[id_]['skill'][-1]['skillLevel'], True)
+                dlevel = lv
+            n_tn, n_ln, n_pn, lv = skill_expand(skill_dict[id_]['skill'][-1]['skillId'], c + 1, skill_dict[id_]['skill'][-1]['skillLevel'],
+                                                      True, dlevel)
             n_t += n_tn
             n_l += n_ln
             n_p += n_pn
-            p_p += p_pn
-        return n_t, n_l, n_p, p_p
+            dlevel = lv
+        return n_t, n_l, n_p, dlevel
 
 
 def sktree(command: list, group_id: int, *args, **kwargs) -> Union[bool, dict]:
@@ -3371,14 +3390,17 @@ def sktree(command: list, group_id: int, *args, **kwargs) -> Union[bool, dict]:
                     x[0]))[0]
         id_ = int(data_list[typename])
         # inf_data = skill_expand(28659, 0, 0, True, True)
-        inf_data = skill_expand(id_, 0, 0, True, True)
+        inf_data = skill_expand(id_, 0, 0, True, {}, True)
         img_base = Image.new("RGB", (1, 1), 'white')
         img_draw = ImageDraw.Draw(img_base)
         title = '物品名：%s' % typename
         title_width = img_draw.textsize(title, simhei_b_20)[0]
-        if inf_data != ('', '', '', 0):
-            m_skill_text = '总技能点需求：%s' % format(inf_data[3], ',')
-            m_t = inf_data[3] / 0.5
+        if inf_data != ('', '', [], 0, []):
+            dl = inf_data[3]
+            gbt: int = sum([(skill_base_point[level]
+                            * (skill_dict[id_]['time'] if 'time' in skill_dict[id_].keys() else 0)) for id_, level in dl.items()])
+            m_skill_text = '总技能点需求：%s' % format(gbt, ',')
+            m_t = gbt / 0.5
             m_time_text = '预估训练用时：{0}年{1}天{2}小时{3}分钟{4}秒'.format(int(m_t // (3600 * 24 * 365)),
                                                                  int(m_t % (3600 * 24 * 365) // (3600 * 24)),
                                                                  int(m_t % (3600 * 24 * 365) % (3600 * 24) // 3600),
@@ -3388,17 +3410,20 @@ def sktree(command: list, group_id: int, *args, **kwargs) -> Union[bool, dict]:
             name_width = img_draw.textsize(inf_data[0], simhei_15)[0]
             level_width = img_draw.textsize(inf_data[1], simhei_15)[0]
             m_skill_width = img_draw.textsize(m_skill_text, simhei_20)[0]
-            point_width = img_draw.textsize(inf_data[2], simhei_15)[0]
+            # print(inf_data[2])
+            # print(dl)
+            point_text = '\n'.join([('- %s' % ('×' if x['skill'] not in dl.keys() or x['level'] < dl[x['skill']] else x['point'])) for x in inf_data[2]])
+            point_width = img_draw.textsize(point_text, simhei_15)[0]
             m_height = img_draw.textsize(inf_data[0], simhei_15)[1]
             img_base = img_base.resize((
-                                       max(50 + name_width + 50 + level_width + 50 + point_width + 50, 50 + title_width + 50, 75 + m_skill_width + 75,
-                                           75 + m_time_width + 75),
-                                       100 + m_height + 25 + 25 + 25 + 25 + 50))
+                max(50 + name_width + 50 + level_width + 50 + point_width + 50, 50 + title_width + 50, 75 + m_skill_width + 75,
+                    75 + m_time_width + 75),
+                100 + m_height + 25 + 25 + 25 + 25 + 50))
             img_draw = ImageDraw.Draw(img_base)
             img_draw.text((50, 50), text=title, fill='black', font=simhei_b_20)
             img_draw.text((50, 100), text=inf_data[0], fill='black', font=simhei_15)
             img_draw.text((50 + name_width + 50, 100), text=inf_data[1], fill='black', font=simhei_15)
-            img_draw.text((50 + name_width + 50 + point_width + 50, 100), text=inf_data[2], fill='black', font=simhei_15)
+            img_draw.text((50 + name_width + 50 + point_width + 50, 100), text=point_text, fill='black', font=simhei_15)
             img_draw.text((75, 100 + m_height + 25), text=m_skill_text, fill='black', font=simhei_20)
             img_draw.text((75, 100 + m_height + 25 + 25 + 25), text=m_time_text, fill='black', font=simhei_20)
         else:

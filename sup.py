@@ -2134,7 +2134,7 @@ def blpm(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
                     x[0]))[0]
         b = blp_list[int(blpt_list[typename])]
         text = "蓝图国服材料价格(伏尔戈)：\n"
-        title_text = '物品名称：' + typename + "\n"
+        title_text = f'物品名称：{typename} （来自：晨曦）\n'
         if 'manufacturing' in b['activities'].keys():
             param_list = [0, 0, 0, 0]
             for i in range(1, len(command)):
@@ -2352,7 +2352,7 @@ def oblpm(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
                     x[0]))[0]
         b = blp_list[int(blpt_list[typename])]
         text = "蓝图国服材料价格(伏尔戈)：\n"
-        title_text = '物品名称：' + typename + "\n"
+        title_text = f'物品名称：{typename} （来自：宁静）\n'
         if 'manufacturing' in b['activities'].keys():
             param_list = [0, 0, 0, 0]
             for i in range(1, len(command)):
@@ -2804,9 +2804,11 @@ def blpe(command: list, group_id: int, *args, **kwargs) -> dict:
             img_base = Image.new("RGB", (1, 1), 'white')
             draw = ImageDraw.Draw(img_base)
             rtt = "\n".join(use)
+            title_geo = draw.textsize(title_text, simhei_b_20)
             use_list_geo = draw.textsize(text, simhei_l_15)
             all_geo = draw.textsize(rtt, simhei_l_15)
-            img_base = img_base.resize((25 + use_list_geo[0] + 20 + all_geo[0] + 25, max(50 + use_list_geo[1] + 50, 75 + all_geo[1] + 50)))
+            img_base = img_base.resize((max(25 + use_list_geo[0] + 20 + all_geo[0] + 25, 25 + title_geo[0] + 25),
+                                        max(50 + use_list_geo[1] + 50, 75 + all_geo[1] + 50)))
             draw = ImageDraw.Draw(img_base)
             draw.text((25, 25), text=title_text, fill='black', font=simhei_b_20)
             draw.text((25, 50), text=text, fill='black', font=simhei_l_15)
@@ -2859,7 +2861,7 @@ def blpem(command: list, group_id: int, *args, **kwargs):
                     typename,
                     x[0]))[0]
         b = blp_list[int(blpt_list[typename])]
-        title_text = '物品名称：' + typename + "\n"
+        title_text = f'物品名称：{typename} （来自：晨曦）\n'
         text = "蓝图材料：\n"
         param_list = [0, 0, 0, 0]
         for i in range(1, len(command)):
@@ -2983,7 +2985,7 @@ def blpem(command: list, group_id: int, *args, **kwargs):
             img_base = img_base.resize((25 + main_geo[0] + 20 + max(len(max(price1.split("\n"), key=len)) * 20,
                                                                     len(max(price2.split("\n"), key=len)) * 20,
                                                                     len(price_tag2) * 25,
-                                                                    len(max(profit_text.split("\n"), key=len)) * 20) + 25,
+                                                                    len(max(profit_text.split("\n"), key=len)) * 20) + 35,
                                         max(600, 50 + main_geo[1] + 50)))
             draw = ImageDraw.Draw(img_base)
             draw.text((25, 25), text=title_text,
@@ -3053,7 +3055,7 @@ def oblpem(command: list, group_id: int, *args, **kwargs):
                     typename,
                     x[0]))[0]
         b = blp_list[int(blpt_list[typename])]
-        title_text = '物品名称：' + typename + "\n"
+        title_text = f'物品名称：{typename} （来自：宁静）\n'
         text = "蓝图材料：\n"
         param_list = [0, 0, 0, 0]
         for i in range(1, len(command)):
@@ -3178,7 +3180,7 @@ def oblpem(command: list, group_id: int, *args, **kwargs):
             img_base = img_base.resize((25 + main_geo[0] + 20 + max(len(max(price1.split("\n"), key=len)) * 20,
                                                                     len(max(price2.split("\n"), key=len)) * 20,
                                                                     len(price_tag2) * 25,
-                                                                    len(max(profit_text.split("\n"), key=len)) * 20) + 25,
+                                                                    len(max(profit_text.split("\n"), key=len)) * 20) + 35,
                                         max(600, 50 + main_geo[1] + 50)))
             draw = ImageDraw.Draw(img_base)
             draw.text((25, 25), text=title_text,

@@ -153,6 +153,9 @@ GUILD_HELP = """********************
   /sch 查询行星资源
 =====备注=====
 直接发送api获取使用方法
+=============
+新API服务器：http://101.34.37.178
+=============
 """
 KM_SHOWING_TEXT = '{victim} 在 {sys} 损失的 {ship} (于{tm})\nKB网链接：{kb_link}\n'
 STATUS_TEXT = """服务器当前状态：
@@ -462,7 +465,8 @@ def help(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
             return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
                 {'type': 'text', 'data': {"text": GUILD_HELP}}]}, 'echo': 'apiCallBack'}
         return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
-            {'type': 'image', 'data': {'type': 'image', "file": f"{BASE_HELPER_PATH}"}}]}, 'echo': 'apiCallBack'}
+            {'type': 'image', 'data': {'type': 'image', "file": f"{BASE_HELPER_PATH}"}},
+            {'type': 'text', 'data': {'text': '新API服务器：http://101.34.37.178'}}]}, 'echo': 'apiCallBack'}
     elif command[0] in API_GROUP_DICT.keys():
         rt = eval(command[0][1:] + "([]," + str(group_id) + ")")
         return rt

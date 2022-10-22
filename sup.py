@@ -64,6 +64,7 @@ BASE_SKILL_S_MARKET = 'https://www.ceve-market.org/api/market/type/45635.json'
 BASE_SKILL_S_MARKET_TQ = 'https://www.ceve-market.org/tqapi/market/type/45635.json'
 # corporation lp shop offers
 BASE_COR_LP_SHOP = 'https://esi.evepc.163.com/latest/loyalty/stores/{corporation_id}/offers/'
+COR_LP_MARKET = 'http://101.34.37.178/loyalty/market/corp/{corporation_id}/sorted/?server={server}&from={fm}&amo={amo}'
 # search
 BASE_SEARCH = 'https://esi.evepc.163.com/latest/search/'
 BASE_SEARCH_TQ = 'https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en'
@@ -1710,7 +1711,7 @@ def lp(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
     global market_type_list, data_list, id_list, npc_cor_list, blp_list
     print('using lp')
     if len(command) < 1 or command[0] == '':
-        text = '用法(lp)：.lp npc军团名（，是[否]）<是否计算蓝图>'
+        text = '用法(lp)：.lp npc军团名'
     else:
         cor_name = command[0]
         if cor_name in npc_cor_list.keys():
@@ -1722,153 +1723,21 @@ def lp(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
                 ),
                 key=lambda x: fuzz.ratio(cor_name, x[0])
             )[0]
-        lp_shop_d = requests.get(BASE_COR_LP_SHOP.format(
-            corporation_id=npc_cor_list[cor_name])).json()
-        det = {'max': {}, 'min': {}, 'ave': {}}
-        mkt_cache = {}
-        for i in lp_shop_d:
-            if 'lp_cost' not in i.keys() or i['lp_cost'] == 0 \
-                    or 'type_id' not in i.keys():
-                continue
-            else:
-                if i['type_id'] in mkt_cache.keys():
-                    mdf = mkt_cache[i['type_id']]
-                else:
-                    mdf = requests.get(
-                        BASE_URL_MARKET.format(
-                            id=i['type_id'],
-                            reg='10000002')).json()
-                    mkt_cache[i['type_id']] = mdf
-                cst = {'bm': 0, 'sm': 0, 'ave': 0}
-                war = []
-                if 'required_items' not in i.keys():
-                    pass
-                else:
-                    for kr in i['required_items']:
-                        if str(kr['type_id']) not in market_type_list.values():
-                            war.append(kr['type_id'])
-                            continue
-                        if kr['type_id'] in mkt_cache.keys():
-                            gr = mkt_cache[kr['type_id']]
-                        else:
-                            gr = requests.get(
-                                BASE_URL_MARKET.format(
-                                    id=kr['type_id'],
-                                    reg='10000002')).json()
-                        cst['bm'] += gr['buy']['max'] * kr['quantity']
-                        cst['sm'] += gr['sell']['min'] * kr['quantity']
-                        cst['ave'] += (gr['sell']['min'] + gr['buy']['max']) / 2 * kr['quantity']
-                try:
-                    if i['type_id'] in blp_list.keys() and (
-                            (len(command) >= 2 and command[1] == '是') or len(command) == 1):
-                        for ma in blp_list[i['type_id']]['activities']['manufacturing']['materials']:
-                            if ma['type_id'] in mkt_cache.keys():
-                                gr = mkt_cache[ma['type_id']]
-                            else:
-                                try:
-                                    gr = requests.get(BASE_URL_MARKET.format(
-                                        id=ma['typeID'], reg='10000002')).json()
-                                except requests.exceptions.RequestException as reqE:
-                                    gr = {
-                                        "all": {
-                                            "max": 0, "min": 0, "volume": 0}, "buy": {
-                                            "max": 0, "min": 0, "volume": 0}, "sell": {
-                                            "max": 0, "min": 0, "volume": 0}}
-                            cst['bm'] += gr['buy']['max'] * ma['quantity']
-                            cst['sm'] += gr['sell']['min'] * ma['quantity']
-                            cst['ave'] += (gr['sell']['min'] +
-                                           gr['buy']['min']) / 2 * ma['quantity']
-                        if blp_list[i['type_id']]['activities']['manufacturing']['products'][0]['typeID'] in mkt_cache.keys():
-                            mdf = mkt_cache[blp_list[i['type_id']]['activities']['manufacturing']['products'][0]['typeID']]
-                        else:
-                            mdf = requests.get(BASE_URL_MARKET.format(
-                                id=blp_list[i['type_id']]['activities']['manufacturing']['products'][0]['typeID'], reg='10000002')).json()
-                        i['quantity'] *= blp_list[i['type_id']
-                        ]['activities']['manufacturing']['products'][0]['quantity']
-                except KeyError:
-                    # print(e)
-                    # traceback.print_exc()
-                    pass
-                pmax = (mdf['sell']['min'] * i['quantity'] -
-                        cst['bm'] - i['isk_cost']) / i['lp_cost']
-                pmin = (mdf['buy']['max'] * i['quantity'] -
-                        cst['sm'] - i['isk_cost']) / i['lp_cost']
-                pave = ((mdf['buy']['max'] + mdf['sell']['min']) *
-                        i['quantity'] / 2 - cst['ave'] - i['isk_cost']) / i['lp_cost']
-                # print({'mdf': mdf, 'cst': cst, 'p': {'pmax': pmax, 'pmin': pmin, 'pave': pave}, 'id': i['offer_id']})
-                # print(i, '\n', pmax, pmin, pave)
-                # print(det)
-                if len(det['max']) < 3:
-                    det['max'][i['offer_id']] = {'isk_cost': i['isk_cost'],
-                                                 'lp_cost': i['lp_cost'],
-                                                 'type_id': i['type_id'],
-                                                 'quantity': i['quantity'],
-                                                 'p': pmax}
-                else:
-                    if pmax > det['max'][min(
-                            det['max'], key=lambda x: det['max'][x]['p'])]['p']:
-                        del det['max'][min(
-                            det['max'], key=lambda x: det['max'][x]['p'])]
-                        det['max'][i['offer_id']] = {'isk_cost': i['isk_cost'],
-                                                     'lp_cost': i['lp_cost'],
-                                                     'type_id': i['type_id'],
-                                                     'quantity': i['quantity'],
-                                                     'p': pmax}
-                if len(det['min']) < 3:
-                    det['min'][i['offer_id']] = {'isk_cost': i['isk_cost'],
-                                                 'lp_cost': i['lp_cost'],
-                                                 'type_id': i['type_id'],
-                                                 'quantity': i['quantity'],
-                                                 'p': pmin}
-                else:
-                    if pmin > det['min'][min(
-                            det['min'], key=lambda x: det['min'][x]['p'])]['p']:
-                        del det['min'][min(
-                            det['min'], key=lambda x: det['min'][x]['p'])]
-                        det['min'][i['offer_id']] = {'isk_cost': i['isk_cost'],
-                                                     'lp_cost': i['lp_cost'],
-                                                     'type_id': i['type_id'],
-                                                     'quantity': i['quantity'],
-                                                     'p': pmin}
-                if len(det['ave']) < 3:
-                    det['ave'][i['offer_id']] = {'isk_cost': i['isk_cost'],
-                                                 'lp_cost': i['lp_cost'],
-                                                 'type_id': i['type_id'],
-                                                 'quantity': i['quantity'],
-                                                 'p': pave}
-                else:
-                    if pave > det['ave'][min(
-                            det['ave'], key=lambda x: det['ave'][x]['p'])]['p']:
-                        del det['ave'][min(
-                            det['ave'], key=lambda x: det['ave'][x]['p'])]
-                        det['ave'][i['offer_id']] = {'isk_cost': i['isk_cost'],
-                                                     'lp_cost': i['lp_cost'],
-                                                     'type_id': i['type_id'],
-                                                     'quantity': i['quantity'],
-                                                     'p': pave}
-        dot = {'max': [], 'min': [], 'ave': []}
-        for _i in det['max']:
-            dot['max'].append(det['max'][_i])
-        for _i in det['min']:
-            dot['min'].append(det['min'][_i])
-        for _i in det['ave']:
-            dot['ave'].append(det['ave'][_i])
-        dot['max'].sort(key=lambda x: x['p'], reverse=True)
-        dot['min'].sort(key=lambda x: x['p'], reverse=True)
-        dot['ave'].sort(key=lambda x: x['p'], reverse=True)
-        text = "军团：{}（国服数据）\n".format(cor_name)
-        text += "|最大收益：\n"
-        for _i in dot['max']:
-            text += "-{0}×{1} -> {2}/lp\n".format(
-                id_list[str(_i['type_id'])], _i['quantity'], "%.2f" % _i['p'])
-        text += "|最快变现：\n"
-        for _i in dot['min']:
-            text += "-{0}×{1} -> {2}/lp\n".format(
-                id_list[str(_i['type_id'])], _i['quantity'], "%.2f" % _i['p'])
-        text += "|中位收益：\n"
-        for _i in dot['ave']:
-            text += "-{0}×{1} -> {2}/lp\n".format(
-                id_list[str(_i['type_id'])], _i['quantity'], "%.2f" % _i['p'])
+        lp_shop_d_min = requests.get(COR_LP_MARKET.format(corporation_id=npc_cor_list[cor_name],
+                                                          server='serenity',
+                                                          amo='3',
+                                                          fm='min')).json()
+        lp_shop_d_max = requests.get(COR_LP_MARKET.format(corporation_id=npc_cor_list[cor_name],
+                                                          server='serenity',
+                                                          amo='3',
+                                                          fm='max')).json()
+        text = '军团：{}（国服数据）\n'.format(cor_name)
+        text += '| 最大收益：\n'
+        for o in lp_shop_d_max['message']['data']:
+            text += ' - {0} × {1} : {2} isk/lp\n'.format(id_list[str(o['type_id'])], o['quantity'], "%.2f" % o['profit']['per_point']['max'])
+        text += '| 常规收益：\n'
+        for o in lp_shop_d_min['message']['data']:
+            text += ' - {0} × {1} : {2} isk/lp\n'.format(id_list[str(o['type_id'])], o['quantity'], "%.2f" % o['profit']['per_point']['min'])
     return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
         {'type': 'text', 'data': {'text': text}}]}, 'echo': 'apiCallBack'}
 
@@ -1877,7 +1746,7 @@ def olp(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
     global market_type_list, data_list, id_list, npc_cor_list, blp_list
     print('using olp')
     if len(command) < 1 or command[0] == '':
-        text = '用法(olp)：.olp npc军团名（，是[否]）<是否计算蓝图>'
+        text = '用法(olp)：.olp npc军团名'
     else:
         cor_name = command[0]
         if cor_name in npc_cor_list.keys():
@@ -1889,153 +1758,21 @@ def olp(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
                 ),
                 key=lambda x: fuzz.ratio(cor_name, x[0])
             )[0]
-        lp_shop_d = requests.get(BASE_COR_LP_SHOP.format(
-            corporation_id=npc_cor_list[cor_name])).json()
-        det = {'max': {}, 'min': {}, 'ave': {}}
-        mkt_cache = {}
-        for i in lp_shop_d:
-            if 'lp_cost' not in i.keys() or i['lp_cost'] == 0 \
-                    or 'type_id' not in i.keys():
-                continue
-            else:
-                if i['type_id'] in mkt_cache.keys():
-                    mdf = mkt_cache[i['type_id']]
-                else:
-                    mdf = requests.get(
-                        BASE_URL_MARKET_TQ.format(
-                            id=i['type_id'],
-                            reg='10000002')).json()
-                    mkt_cache[i['type_id']] = mdf
-                cst = {'bm': 0, 'sm': 0, 'ave': 0}
-                war = []
-                if 'required_items' not in i.keys():
-                    pass
-                else:
-                    for kr in i['required_items']:
-                        if str(kr['type_id']) not in market_type_list.values():
-                            war.append(kr['type_id'])
-                            continue
-                        if kr['type_id'] in mkt_cache.keys():
-                            gr = mkt_cache[kr['type_id']]
-                        else:
-                            gr = requests.get(
-                                BASE_URL_MARKET_TQ.format(
-                                    id=kr['type_id'],
-                                    reg='10000002')).json()
-                        cst['bm'] += gr['buy']['max'] * kr['quantity']
-                        cst['sm'] += gr['sell']['min'] * kr['quantity']
-                        cst['ave'] += (gr['sell']['min'] + gr['buy']['max']) / 2 * kr['quantity']
-                try:
-                    if i['type_id'] in blp_list.keys() and (
-                            (len(command) >= 2 and command[1] == '是') or len(command) == 1):
-                        for ma in blp_list[i['type_id']]['activities']['manufacturing']['materials']:
-                            if ma['type_id'] in mkt_cache.keys():
-                                gr = mkt_cache[ma['type_id']]
-                            else:
-                                try:
-                                    gr = requests.get(BASE_URL_MARKET_TQ.format(
-                                        id=ma['typeID'], reg='10000002')).json()
-                                except requests.exceptions.RequestException as reqE:
-                                    gr = {
-                                        "all": {
-                                            "max": 0, "min": 0, "volume": 0}, "buy": {
-                                            "max": 0, "min": 0, "volume": 0}, "sell": {
-                                            "max": 0, "min": 0, "volume": 0}}
-                            cst['bm'] += gr['buy']['max'] * ma['quantity']
-                            cst['sm'] += gr['sell']['min'] * ma['quantity']
-                            cst['ave'] += (gr['sell']['min'] +
-                                           gr['buy']['min']) / 2 * ma['quantity']
-                        if blp_list[i['type_id']]['activities']['manufacturing']['products'][0]['typeID'] in mkt_cache.keys():
-                            mdf = mkt_cache[blp_list[i['type_id']]['activities']['manufacturing']['products'][0]['typeID']]
-                        else:
-                            mdf = requests.get(BASE_URL_MARKET_TQ.format(
-                                id=blp_list[i['type_id']]['activities']['manufacturing']['products'][0]['typeID'], reg='10000002')).json()
-                        i['quantity'] *= blp_list[i['type_id']
-                        ]['activities']['manufacturing']['products'][0]['quantity']
-                except KeyError:
-                    # print(e)
-                    # traceback.print_exc()
-                    pass
-                pmax = (mdf['sell']['min'] * i['quantity'] -
-                        cst['bm'] - i['isk_cost']) / i['lp_cost']
-                pmin = (mdf['buy']['max'] * i['quantity'] -
-                        cst['sm'] - i['isk_cost']) / i['lp_cost']
-                pave = ((mdf['buy']['max'] + mdf['sell']['min']) *
-                        i['quantity'] / 2 - cst['ave'] - i['isk_cost']) / i['lp_cost']
-                # print({'mdf': mdf, 'cst': cst, 'p': {'pmax': pmax, 'pmin': pmin, 'pave': pave}, 'id': i['offer_id']})
-                # print(i, '\n', pmax, pmin, pave)
-                # print(det)
-                if len(det['max']) < 3:
-                    det['max'][i['offer_id']] = {'isk_cost': i['isk_cost'],
-                                                 'lp_cost': i['lp_cost'],
-                                                 'type_id': i['type_id'],
-                                                 'quantity': i['quantity'],
-                                                 'p': pmax}
-                else:
-                    if pmax > det['max'][min(
-                            det['max'], key=lambda x: det['max'][x]['p'])]['p']:
-                        del det['max'][min(
-                            det['max'], key=lambda x: det['max'][x]['p'])]
-                        det['max'][i['offer_id']] = {'isk_cost': i['isk_cost'],
-                                                     'lp_cost': i['lp_cost'],
-                                                     'type_id': i['type_id'],
-                                                     'quantity': i['quantity'],
-                                                     'p': pmax}
-                if len(det['min']) < 3:
-                    det['min'][i['offer_id']] = {'isk_cost': i['isk_cost'],
-                                                 'lp_cost': i['lp_cost'],
-                                                 'type_id': i['type_id'],
-                                                 'quantity': i['quantity'],
-                                                 'p': pmin}
-                else:
-                    if pmin > det['min'][min(
-                            det['min'], key=lambda x: det['min'][x]['p'])]['p']:
-                        del det['min'][min(
-                            det['min'], key=lambda x: det['min'][x]['p'])]
-                        det['min'][i['offer_id']] = {'isk_cost': i['isk_cost'],
-                                                     'lp_cost': i['lp_cost'],
-                                                     'type_id': i['type_id'],
-                                                     'quantity': i['quantity'],
-                                                     'p': pmin}
-                if len(det['ave']) < 3:
-                    det['ave'][i['offer_id']] = {'isk_cost': i['isk_cost'],
-                                                 'lp_cost': i['lp_cost'],
-                                                 'type_id': i['type_id'],
-                                                 'quantity': i['quantity'],
-                                                 'p': pave}
-                else:
-                    if pave > det['ave'][min(
-                            det['ave'], key=lambda x: det['ave'][x]['p'])]['p']:
-                        del det['ave'][min(
-                            det['ave'], key=lambda x: det['ave'][x]['p'])]
-                        det['ave'][i['offer_id']] = {'isk_cost': i['isk_cost'],
-                                                     'lp_cost': i['lp_cost'],
-                                                     'type_id': i['type_id'],
-                                                     'quantity': i['quantity'],
-                                                     'p': pave}
-        dot = {'max': [], 'min': [], 'ave': []}
-        for _i in det['max']:
-            dot['max'].append(det['max'][_i])
-        for _i in det['min']:
-            dot['min'].append(det['min'][_i])
-        for _i in det['ave']:
-            dot['ave'].append(det['ave'][_i])
-        dot['max'].sort(key=lambda x: x['p'], reverse=True)
-        dot['min'].sort(key=lambda x: x['p'], reverse=True)
-        dot['ave'].sort(key=lambda x: x['p'], reverse=True)
-        text = "军团：{}（世界服数据）\n".format(cor_name)
-        text += "|最大收益：\n"
-        for _i in dot['max']:
-            text += "-{0}×{1} -> {2}/lp\n".format(
-                id_list[str(_i['type_id'])], _i['quantity'], "%.2f" % _i['p'])
-        text += "|最快变现：\n"
-        for _i in dot['min']:
-            text += "-{0}×{1} -> {2}/lp\n".format(
-                id_list[str(_i['type_id'])], _i['quantity'], "%.2f" % _i['p'])
-        text += "|中位收益：\n"
-        for _i in dot['ave']:
-            text += "-{0}×{1} -> {2}/lp\n".format(
-                id_list[str(_i['type_id'])], _i['quantity'], "%.2f" % _i['p'])
+        lp_shop_d_min = requests.get(COR_LP_MARKET.format(corporation_id=npc_cor_list[cor_name],
+                                                          server='tranquility',
+                                                          amo='3',
+                                                          fm='min')).json()
+        lp_shop_d_max = requests.get(COR_LP_MARKET.format(corporation_id=npc_cor_list[cor_name],
+                                                          server='tranquility',
+                                                          amo='3',
+                                                          fm='max')).json()
+        text = '军团：{}（世界服数据）\n'.format(cor_name)
+        text += '| 最大收益：\n'
+        for o in lp_shop_d_max['message']['data']:
+            text += ' - {0} × {1} : {2} isk/lp\n'.format(id_list[str(o['type_id'])], o['quantity'], "%.2f" % o['profit']['per_point']['max'])
+        text += '| 常规收益：\n'
+        for o in lp_shop_d_min['message']['data']:
+            text += ' - {0} × {1} : {2} isk/lp\n'.format(id_list[str(o['type_id'])], o['quantity'], "%.2f" % o['profit']['per_point']['min'])
     return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
         {'type': 'text', 'data': {'text': text}}]}, 'echo': 'apiCallBack'}
 

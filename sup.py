@@ -124,9 +124,7 @@ simhei_b_15 = ImageFont.truetype('fonts/msyhbd.ttc', 15, encoding='utf-8')
 simhei_l_15 = ImageFont.truetype('fonts/msyhl.ttc', 15, encoding='utf-8')
 
 '''advertisement'''
-ADV_TEXT = """长期出售steam余额代充及充值卡等
-EVE官网礼包代充低价氪PLEX
-详情联系1829984917"""
+ADV_TEXT = ""
 
 '''text platform'''
 GUILD_HELP = """********************
@@ -248,9 +246,8 @@ HELP_TEXT = """=============
 =====备注=====
 api的“.”可以省略
 直接发送api获取使用方法
-====广告栏====
-长期出售steam余额代充及充值卡；EVE官网礼包代充低价氪PLEX
-详情联系1829984917
+=============
+新API服务器：http://101.34.37.178
 ============="""
 
 
@@ -466,8 +463,7 @@ def help(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
             return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
                 {'type': 'text', 'data': {"text": GUILD_HELP}}]}, 'echo': 'apiCallBack'}
         return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
-            {'type': 'image', 'data': {'type': 'image', "file": f"{BASE_HELPER_PATH}"}},
-            {'type': 'text', 'data': {'text': '新API服务器：http://101.34.37.178'}}]}, 'echo': 'apiCallBack'}
+            {'type': 'image', 'data': {'type': 'image', "file": f"{BASE_HELPER_PATH}"}}]}, 'echo': 'apiCallBack'}
     elif command[0] in API_GROUP_DICT.keys():
         rt = eval(command[0][1:] + "([]," + str(group_id) + ")")
         return rt
@@ -3015,14 +3011,13 @@ def accm(command: list, group_id: int, *args, **kwargs):
         isk_per_point = ave_skill_m / dec
         v_worth = v_point * isk_per_point
         text = ACC_MARKET_TEXT.format(server_name='晨曦',
-                                      text=ACC_MARKET_TEXT.format(server_name='晨曦',
-                                                                  point_plus='+' + str(plus),
-                                                                  e_time=str(day) + '天',
-                                                                  ave_skill=format(float("%.2f" % ave_skill_m), ','),
-                                                                  e_point=format(dec, ','),
-                                                                  isk_per_point=format(float("%.2f" % isk_per_point), ','),
-                                                                  e_point_increase="%.2f" % v_point,
-                                                                  expect_worth=format(float("%.2f" % v_worth), ',')))
+                                      point_plus='+' + str(plus),
+                                      e_time=str(day) + '天',
+                                      ave_skill=format(float("%.2f" % ave_skill_m), ','),
+                                      e_point=format(dec, ','),
+                                      isk_per_point=format(float("%.2f" % isk_per_point), ','),
+                                      e_point_increase="%.2f" % v_point,
+                                      expect_worth=format(float("%.2f" % v_worth), ','))
     return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
         {'type': 'text', 'data': {'text': text}}]}, 'echo': 'apiCallBack'}
 

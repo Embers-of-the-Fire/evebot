@@ -80,7 +80,9 @@
     ".prev": "prev",
     "/prev": "prev",
     ".oprev": "oprev",
-    "/oprev": "oprev"
+    "/oprev": "oprev",
+    ".sche": "sche",
+    "/sche": "sche"
   },
   "guild": {
     ".blp": "blp",

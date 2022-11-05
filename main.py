@@ -108,7 +108,8 @@ if __name__ == '__main__':
         re_log(rtm=time.localtime(time.time()))
         print('---Data Pre Loading---')
         market_type_list, blp_list, reg_list, mkd_list, prod_list, data_list, blpt_list, id_list, blp_detail_list, \
-            abbr_list, desc_list, trans_version_df, npc_cor_list, dogma_list, plaSch_list, traits_list, ship_data_list, plaSch_id_list, logger, logger2, skill_dict = sup.pre_load()
+            abbr_list, desc_list, trans_version_df, npc_cor_list, dogma_list, plaSch_list, traits_list, ship_data_list, plaSch_id_list, logger, \
+            logger2, skill_dict, sch_expand_dict, sch_prod_dict_f, sch_prod_dict_e = sup.pre_load()
         server = websockets.serve(rt, 'localhost', 5705)
         print('---Group Bot Server Started---')
         intent = botpy.Intents(public_guild_messages=True)

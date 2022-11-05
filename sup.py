@@ -27,7 +27,7 @@ mpl.rcParams['axes.unicode_minus'] = False
 
 global market_type_list, blp_list, reg_list, mkd_list, prod_list, data_list, blpt_list, id_list, blp_detail_list, abbr_list, logger, logger2, \
     desc_list, trans_version_df, npc_cor_list, dogma_list, plaSch_list, traits_list, ship_data_list, plaSch_id_list, skill_dict, skill_point, \
-    skill_base_point
+    skill_base_point, sch_expand_dict, sch_prod_dict_f, sch_prod_dict_e
 '''supporting databases'''
 BASE_DATA_PATH = 'supporting_files/data.csv'
 BASE_BLP_PATHr = 'supporting_files/blueprints.yaml'
@@ -51,6 +51,8 @@ BASE_ISSLOG_PATH = 'bot_logs/issue_logs'
 BASE_HELPER_PATH = 'sup_images/helper_image.png'
 BASE_ADMIN_HELPER_PATH = 'sup_images/helper_admin_image.png'
 BASE_SKILL_LIST_PATH = 'supporting_files/skill.yaml'
+BASE_SCH_EXPAND_PATH = 'supporting_files/schExpand.yaml'
+BASE_SCH_PROD_PATH = 'supporting_files/schProducts.csv'
 
 skill_base_point = [0, 250, 1414, 8000, 45254, 256000]
 
@@ -301,7 +303,8 @@ def pre_load():
     -> maxProductionLimit:int
     """
     global market_type_list, blp_list, reg_list, mkd_list, prod_list, data_list, blpt_list, id_list, blp_detail_list, abbr_list, logger, logger2, \
-        desc_list, trans_version_df, npc_cor_list, dogma_list, plaSch_list, traits_list, ship_data_list, plaSch_id_list, skill_dict, skill_point, skill_base_point
+        desc_list, trans_version_df, npc_cor_list, dogma_list, plaSch_list, traits_list, ship_data_list, plaSch_id_list, skill_dict, skill_point, \
+        skill_base_point, sch_expand_dict, sch_prod_dict_f, sch_prod_dict_e
     if not os.path.exists(BASE_LOG_PATH):
         os.makedirs(BASE_LOG_PATH)
     if not os.path.exists(BASE_ISSLOG_PATH):
@@ -347,7 +350,9 @@ def pre_load():
             open(BASE_TRAITS_PATH, mode='r', encoding='utf-8') as traitf, \
             open(BASE_SHIP_LIST_PATH, mode='r', encoding='utf-8') as slpf, \
             open(BASE_PLANET_SCH_NAME_PATH, mode='r', encoding='utf-8') as psnpf, \
-            open(BASE_SKILL_LIST_PATH, mode='r', encoding='utf-8') as skf:
+            open(BASE_SKILL_LIST_PATH, mode='r', encoding='utf-8') as skf, \
+            open(BASE_SCH_EXPAND_PATH, mode='r', encoding='utf-8') as schef, \
+            open(BASE_SCH_PROD_PATH, mode='r', encoding='utf-8') as scprodf:
         c = csv.reader(data)
         keys = next(c)
         data_list = {}
@@ -401,6 +406,13 @@ def pre_load():
         plaSch_id_list = {}
         for row in p:
             plaSch_id_list[row[1]] = row[0]
+        dp = csv.reader(scprodf)
+        next(dp)
+        sch_prod_dict_f = {}
+        sch_prod_dict_e = {}
+        for row in dp:
+            sch_prod_dict_f[row[0]] = row[1]
+            sch_prod_dict_e[row[1]] = row[0]
         blp_list = yaml.safe_load(blpf)
         blp_detail_list = yaml.safe_load(blpd)
         abbr_list = yaml.safe_load(abbr)
@@ -410,9 +422,11 @@ def pre_load():
         plaSch_list = yaml.safe_load(plcf)
         traits_list = yaml.safe_load(traitf)
         skill_dict = yaml.safe_load(skf)
+        sch_expand_dict = yaml.safe_load(schef)
         del c, rr, m, p, t
         return market_type_list, blp_list, reg_list, mkd_list, prod_list, data_list, blpt_list, id_list, blp_detail_list, \
-               abbr_list, desc_list, trans_version_df, npc_cor_list, dogma_list, plaSch_list, traits_list, ship_data_list, plaSch_id_list, logger, logger2, skill_dict
+               abbr_list, desc_list, trans_version_df, npc_cor_list, dogma_list, plaSch_list, traits_list, ship_data_list, plaSch_id_list, logger, \
+               logger2, skill_dict, sch_expand_dict, sch_prod_dict_f, sch_prod_dict_e
 
 
 def admin(command: list, group_id: int, sender: dict, *args, **kwargs):
@@ -1684,7 +1698,7 @@ def sch(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
         except KeyError:
             typename = max(
                 process.extract(
-                    typename, plaSch_list.keys(), limit=5
+                    typename, plaSch_id_list.keys(), limit=5
                 ),
                 key=lambda x: fuzz.ratio(typename, x[0])
             )[0]
@@ -1701,6 +1715,65 @@ def sch(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
             text += '  {}\n'.format(id_list[str(i)])
     return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
         {'type': 'text', 'data': {'text': text}}]}, 'echo': 'apiCallBack'}
+
+
+def sche_formatter(fmt, level: int):
+    global id_list
+    text = ''
+    if len(fmt['materials']) > 1:
+        for f in range(len(fmt['materials']) - 1):
+            text += '  ' * level + '├─' + '{0} × {1}\n'.format(id_list[str(fmt['materials'][f]['typeId'])], fmt['materials'][f]['quantity'])
+            if 'materials' in fmt['materials'][f].keys():
+                text += sche_formatter(fmt['materials'][f], level + 1)
+    text += '  ' * level + '└─' + '{0} × {1}\n'.format(id_list[str(fmt['materials'][-1]['typeId'])], fmt['materials'][-1]['quantity'])
+    return text
+
+
+def sche(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
+    global data_list, id_list, plaSch_id_list, sch_expand_dict, sch_prod_dict_f, sch_prod_dict_e
+    print('using sche')
+    if len(command) < 1 or command[0] == '':
+        text = '用法(sche)： .sche 行星产物名'
+        return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
+            {'type': 'text', 'data': {'text': text}}]}, 'echo': 'apiCallBack'}
+    else:
+        typename = command[0]
+        try:
+            dt_id = plaSch_id_list[typename]
+            tp_id = data_list[typename]
+        except KeyError:
+            typename = max(
+                process.extract(
+                    typename, plaSch_id_list.keys(), limit=5
+                ),
+                key=lambda x: fuzz.ratio(typename, x[0])
+            )[0]
+            dt_id = int(plaSch_id_list[typename])
+            tp_id = data_list[typename]
+        dt = sch_expand_dict[dt_id]
+        title_text = '物品名称：%s' % id_list[tp_id]
+        text = '产出：{0}×{1}\n'.format(id_list[tp_id], dt['quantity'])
+        text += sche_formatter(dt, 0)
+        img_base = Image.new("RGB", (1, 1), 'white')
+        img_draw = ImageDraw.Draw(img_base)
+        title_width = img_draw.textsize(title_text, simhei_20)[0]
+        text_width, text_height = img_draw.textsize(text, simhei_15)
+        # print(inf_data[2])
+        # print(dl)
+        img_base = img_base.resize((
+            max(50 + title_width + 50, 50 + text_width + 50),
+            100 + text_height + 100))
+        img_draw = ImageDraw.Draw(img_base)
+        img_draw.text((50, 50), text=title_text, fill='black', font=simhei_b_20)
+        img_draw.text((50, 100), text=text, fill='black', font=simhei_15)
+        fp = '$' + time.strftime('%Y%m%d%H%M%S', time.localtime(time.time())) + \
+             str(random.randint(random.randint(0, 150), random.randint(200, 300)))
+        img_base.save('data/images/cache/' + fp + ".png")
+        return {'action': 'send_group_msg',
+                'params': {'group_id': group_id,
+                           'message': [{'type': 'image',
+                                        'data': {'file': 'cache\\' + fp + '.png'}}]},
+                'echo': 'IMAGE' + 'data/images/cache/' + fp + ".png"}
 
 
 def lp(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
@@ -2986,7 +3059,7 @@ def acc(command: list, group_id: int, *args, **kwargs):
 
 def accm(command: list, group_id: int, *args, **kwargs):
     print('using accm')
-    if len(command) < 2 or int(command[0]) * int(command[1]) == 0:
+    if len(command) < 2 or float(command[0]) * float(command[1]) == 0:
         text = '用法(accm)：.accm 属性加成，实际作用时长，（脑浆衰减档次）\n' \
                '例：.accm 4，7\n即：应用加成后7天+4加速器\n.accm, 5，5，3\n即：应用加成后5天+5加速器，档次3(500,000→150,000)'
     else:
@@ -3006,7 +3079,7 @@ def accm(command: list, group_id: int, *args, **kwargs):
             dec = 150_000
         l_skill = requests.get(BASE_SKILL_MARKET).json()
         s_skill = requests.get(BASE_SKILL_S_MARKET).json()
-        v_point = plus * 3 * 24 * 60 * day
+        v_point = plus * 1.5 * 24 * 60 * day
         ave_skill_m = (l_skill['sell']['min'] + l_skill['buy']['max'] + 5 * s_skill['sell']['min'] + 5 * s_skill['buy']['max']) / 4
         isk_per_point = ave_skill_m / dec
         v_worth = v_point * isk_per_point
@@ -3024,7 +3097,7 @@ def accm(command: list, group_id: int, *args, **kwargs):
 
 def oaccm(command: list, group_id: int, *args, **kwargs):
     print('using oaccm')
-    if len(command) < 2 or int(command[0]) * int(command[1]) == 0:
+    if len(command) < 2 or float(command[0]) * float(command[1]) == 0:
         text = '用法(oaccm)：.oaccm 属性加成，实际作用时长，（脑浆衰减档次）\n' \
                '例：.oaccm 4，7\n即：应用加成后7天+4加速器\n.oaccm, 5，5，3\n即：应用加成后5天+5加速器，档次3(500,000→150,000)'
     else:
@@ -3044,7 +3117,7 @@ def oaccm(command: list, group_id: int, *args, **kwargs):
             dec = 150_000
         l_skill = requests.get(BASE_SKILL_MARKET_TQ).json()
         s_skill = requests.get(BASE_SKILL_S_MARKET_TQ).json()
-        v_point = plus * 3 * 24 * 60 * day
+        v_point = plus * 1.5 * 24 * 60 * day
         ave_skill_m = (l_skill['sell']['min'] + l_skill['buy']['max'] + 5 * s_skill['sell']['min'] + 5 * s_skill['buy']['max']) / 4
         isk_per_point = ave_skill_m / dec
         v_worth = v_point * isk_per_point
@@ -3064,17 +3137,17 @@ def skill_expand(id_: int, c: int, level: int, fn: bool, dlevel: dict, title: bo
     global skill_dict, data_list, id_list, skill_base_point
     if id_ not in skill_dict.keys():
         if fn:
-            return ('    ' * c + '└ %s' % id_list[str(id_)] + '\n', '- ' + '■ ' * level + '\n', [], dlevel)\
+            return ('    ' * c + '└─ %s' % id_list[str(id_)] + '\n', '- ' + '■ ' * level + '\n', [], dlevel) \
                 if not title else ('', '', [], dlevel)
         else:
-            return ('    ' * c + '├ %s' % id_list[str(id_)] + '\n', '- ' + '■ ' * level + '\n', [], dlevel)\
+            return ('    ' * c + '├─ %s' % id_list[str(id_)] + '\n', '- ' + '■ ' * level + '\n', [], dlevel) \
                 if not title else ('', '', [], dlevel)
     else:
         if fn:
-            n_t = '    ' * c + '└ %s' % id_list[str(id_)] + '\n' if not title else ''
+            n_t = '    ' * c + '└─ %s' % id_list[str(id_)] + '\n' if not title else ''
             n_l = '- ' + '■ ' * level + '\n' if not title else ''
         else:
-            n_t = '    ' * c + '├ %s' % id_list[str(id_)] + '\n' if not title else ''
+            n_t = '    ' * c + '├─ %s' % id_list[str(id_)] + '\n' if not title else ''
             n_l = '- ' + '■ ' * level + '\n' if not title else ''
         if 'time' in skill_dict[id_].keys():
             if not title:
@@ -3087,20 +3160,20 @@ def skill_expand(id_: int, c: int, level: int, fn: bool, dlevel: dict, title: bo
             else:
                 n_p = []
         if id_ in dlevel.keys():
-            if level >= dlevel[id_]:
+            if level > dlevel[id_]:
                 dlevel[id_] = level
         else:
             dlevel[id_] = level
         if 'skill' in skill_dict[id_].keys() and skill_dict[id_]['skill'] != []:
             for i in range(len(skill_dict[id_]['skill']) - 1):
                 n_tn, n_ln, n_pn, lv = skill_expand(skill_dict[id_]['skill'][i]['skillId'], c + 1, skill_dict[id_]['skill'][i]['skillLevel'],
-                                                          False, dlevel)
+                                                    False, dlevel)
                 n_t += n_tn
                 n_l += n_ln
                 n_p += n_pn
                 dlevel = lv
             n_tn, n_ln, n_pn, lv = skill_expand(skill_dict[id_]['skill'][-1]['skillId'], c + 1, skill_dict[id_]['skill'][-1]['skillLevel'],
-                                                      True, dlevel)
+                                                True, dlevel)
             n_t += n_tn
             n_l += n_ln
             n_p += n_pn
@@ -3136,7 +3209,7 @@ def sktree(command: list, group_id: int, *args, **kwargs) -> Union[bool, dict]:
         if inf_data != ('', '', [], 0, []):
             dl = inf_data[3]
             gbt: int = sum([(skill_base_point[level]
-                            * (skill_dict[id_]['time'] if 'time' in skill_dict[id_].keys() else 0)) for id_, level in dl.items()])
+                             * (skill_dict[id_]['time'] if 'time' in skill_dict[id_].keys() else 0)) for id_, level in dl.items()])
             m_skill_text = '总技能点需求：%s' % format(gbt, ',')
             m_t = gbt / 0.5
             m_time_text = '预估训练用时：{0}年{1}天{2}小时{3}分钟{4}秒'.format(int(m_t // (3600 * 24 * 365)),
@@ -3150,7 +3223,8 @@ def sktree(command: list, group_id: int, *args, **kwargs) -> Union[bool, dict]:
             m_skill_width = img_draw.textsize(m_skill_text, simhei_20)[0]
             # print(inf_data[2])
             # print(dl)
-            point_text = '\n'.join([('- %s' % ('×' if x['skill'] not in dl.keys() or x['level'] < dl[x['skill']] else x['point'])) for x in inf_data[2]])
+            point_text = '\n'.join(
+                [('- %s' % ('×' if x['skill'] not in dl.keys() or x['level'] < dl[x['skill']] else x['point'])) for x in inf_data[2]])
             point_width = img_draw.textsize(point_text, simhei_15)[0]
             m_height = img_draw.textsize(inf_data[0], simhei_15)[1]
             img_base = img_base.resize((

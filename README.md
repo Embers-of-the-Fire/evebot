@@ -3,7 +3,7 @@
 
 ## 简介
 
-这是一个基于[go-cqhttp](https://github.com/Mrs4s/go-cqhttp)制作的eve机器人
+这是一个基于 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 制作的eve机器人
 
 ## 主要功能
 
@@ -34,14 +34,18 @@
  - **.blpe** 查询蓝图详细信息
  - **.blpem** 查询国服伏尔戈市场蓝图基础材料订单
  - **.oblpem** 查询世界服伏尔戈市场蓝图基础材料订单
+ - **.blpmh** 查询国服伏尔戈市场蓝图材料历史价格
+ - **.oblpmh** 查询世界服伏尔戈市场蓝图材料历史价格
  - **.acc** 计算加速器作用效果
  - **.accm** 查询国服加速器价值
  - **.oaccm** 查询世界服加速器价值
  - **.sktree** 查询物品技能树 &#10004;
  - **.sch** 查询行星资源 &#10004;
  - **.sche** 查询行星资源具体制造路线
- - **.lp** 查询国服特定军团伏尔戈市场忠诚点价值
- - **.olp** 查询世界服特定军团伏尔戈市场忠诚点价值
+ - **.lp** 查询国服特定军团伏尔戈市场忠诚点价值 &#10004;
+ - **.olp** 查询世界服特定军团伏尔戈市场忠诚点价值 &#10004;
+ - **.lph** 查询国服特定军团伏尔戈市场忠诚点价格历史记录（开发中）
+ - **.olph** 查询世界服特定军团伏尔戈市场忠诚点价格历史记录（开发中）
  - **.dogma** 查询物品属性
  - **.trait** 查询物品加成 &#10004;
  - **.mkd** 查询物品市场分类 &#10004;
@@ -90,36 +94,35 @@
 ~~大佬轻点骂。~~
 
 ```
-├─bot_logs          【自动生成】机器人的日志
-│  ├─issue_logs     【自动生成】issue和abtype、abcol的日志
-│  └─logs           【自动生成】其他日志
-├─data              【go-cqhttp】相关必须数据
-│  └─images         【go-cqhttp】相关图片文件
-│     ├─cache       【自动生成】机器人缓存图片
-│     └─sup_images  【手动创建】机器人的帮助图片
-├─fonts             【支持文件】机器人生成图片所用的字体文件
-├─supporting_files  【重要核心数据】核心数据库
-├─adm.py          【程序扩展】提供了管理员操作功能，但是还没写
-├─main.py           【程序主体】与go-cqhttp的交互
-├─sup.py            【程序扩展】机器人核心功能组件
-└─dialog_logger.py  【程序扩展】言论记录为日志，通过'admin'功能设置，但是还没写
+├─bot_logs             【自动生成】机器人的日志
+│  ├─issue_logs        【自动生成】issue和abtype、abcol的日志
+│  └─logs              【自动生成】其他日志
+├─data                 【go-cqhttp】相关必须数据
+│  └─images            【go-cqhttp】相关图片文件
+│     ├─cache          【自动生成】机器人缓存图片
+│     └─sup_images     【手动创建】机器人的帮助图片
+├─fonts                【支持文件】机器人生成图片所用的字体文件
+├─supporting_files     【重要核心数据】核心数据库
+├─adm.py               【程序扩展】提供了管理员操作功能，但是还没写
+├─main.py              【程序主体】与go-cqhttp的交互
+├─sup.py               【程序扩展】机器人核心功能组件
+└─dialog_logger.py     【程序扩展】言论记录为日志，通过'admin'功能设置，但是还没写
 ```
 
 ## 如何部署
 
-由于在开发过程中我使用的电脑重装过一次，但是忘了备份anaconda和venv，所以后边我干脆懒得创虚拟环境了，因此我不知道里边用到了什么库，所以无法提供全部库列表
-
 ### 1.安装go-cqhttp
 
-前往[go-cqhttp](https://github.com/Mrs4s/go-cqhttp)并下载
-
-下载后应该长这样：`go-cqhttp_windows_amd64.exe`
+前往 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 并根据环境下载
 
 启动后根据提示进行配置，记得选ws模式，然后参考我的`config.yml`进行配置
+
+> 配置请参考Go-CqHttp文档
 
 如果用不到频道机器人（这玩意申请麻烦还不能重名，删了就完了）可以删掉相关内容，如果怕删错了，就把`main.py`中的相关段落改成这样：
 
 ```python
+from main import * # 无需该行，该行仅为标注
 if __name__ == '__main__':
     try:
         re_log(rtm=time.localtime(time.time()))
@@ -137,6 +140,8 @@ if __name__ == '__main__':
 > 该操作无法在云服务器上完成，请部署时复制token文件和设备信息
 
 随后运行`main.py`，加载时间~~很长~~能够接受，等到提示`Group Bot Server Started`后就可以运行go-cqhttp了。
+
+> 如仍有其它问题，请参考 [Go-CqHttp](https://github.com/Mrs4s/go-cqhttp) 相关文档
 
 ## 支持
 

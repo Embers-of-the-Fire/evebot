@@ -82,7 +82,11 @@
     ".oprev": "oprev",
     "/oprev": "oprev",
     ".sche": "sche",
-    "/sche": "sche"
+    "/sche": "sche",
+    ".blpmh": "blpmh",
+    "/blpmh": "blpmh",
+    ".oblpmh": "oblpmh",
+    "/oblpmh": "oblpmh"
   },
   "guild": {
     ".blp": "blp",

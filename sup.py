@@ -16,6 +16,9 @@ from thefuzz import process, fuzz
 import mplfinance as mpf
 import matplotlib as mpl
 import matplotlib.dates as mdates
+import matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import datetime
 
 from typing import List
@@ -64,6 +67,7 @@ BASE_SKILL_MARKET = 'https://www.ceve-market.org/api/market/type/40520.json'
 BASE_SKILL_MARKET_TQ = 'https://www.ceve-market.org/tqapi/market/type/40520.json'
 BASE_SKILL_S_MARKET = 'https://www.ceve-market.org/api/market/type/45635.json'
 BASE_SKILL_S_MARKET_TQ = 'https://www.ceve-market.org/tqapi/market/type/45635.json'
+BASE_BLP_HISTORY = 'http://101.34.37.178/blp/market/{blp_id}/{_type}/history/?server={server}'
 # corporation lp shop offers
 BASE_COR_LP_SHOP = 'https://esi.evepc.163.com/latest/loyalty/stores/{corporation_id}/offers/'
 COR_LP_MARKET = 'http://101.34.37.178/loyalty/market/corp/{corporation_id}/sorted/?server={server}&from={fm}&amo={amo}'
@@ -1811,6 +1815,27 @@ def lp(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
         {'type': 'text', 'data': {'text': text}}]}, 'echo': 'apiCallBack'}
 
 
+def lph(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
+    print('using lph')
+    if len(command) < 1 or command[0] == '':
+        text = '用法(lph)：.lph npc军团名'
+        return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
+            {'type': 'text', 'data': {'text': text}}]}, 'echo': 'apiCallBack'}
+    else:
+        cor_name = command[0]
+        if cor_name in npc_cor_list.keys():
+            pass
+        else:
+            cor_name = max(
+                process.extract(
+                    cor_name, npc_cor_list.keys(), limit=20
+                ),
+                key=lambda x: fuzz.ratio(cor_name, x[0])
+            )[0]
+
+
+
+
 def olp(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
     global market_type_list, data_list, id_list, npc_cor_list, blp_list
     print('using olp')
@@ -2356,6 +2381,136 @@ def oblpm(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
                            'message': [{'type': 'image',
                                         'data': {'file': 'cache\\' + fp + '.png'}}]},
                 'echo': 'IMAGE' + 'data/images/cache/' + fp + ".png"}
+
+
+def blpmh(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
+    global data_list, id_list, blp_list, blpt_list
+    if len(command) < 1 or command[0] == "":
+        text = '用法(blpmh)：.blpmh 蓝图名'
+        return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
+            {'type': 'text', 'data': {'text': text}}]}, 'echo': 'apiCallBack'}
+    else:
+        typename = command[0]
+        if typename not in blp_list.keys():
+            typename = max(
+                process.extract(
+                    typename,
+                    blpt_list.keys(),
+                    limit=10),
+                key=lambda x: fuzz.ratio(
+                    typename,
+                    x[0]))[0]
+        blp_id = int(blpt_list[typename])
+        b = blp_list[blp_id]
+        normal_read = requests.get(BASE_BLP_HISTORY.format(blp_id=blp_id, _type='normal', server='serenity')).json()
+        expand_read = requests.get(BASE_BLP_HISTORY.format(blp_id=blp_id, _type='expand', server='serenity')).json()
+        fp = '$' + time.strftime('%Y%m%d%H%M%S', time.localtime(time.time())) + \
+             str(random.randint(random.randint(0, 150), random.randint(200, 300)))
+        make_pic(normal_read, expand_read, 'data/images/cache/' + fp + ".png", typename, '晨曦')
+        return {'action': 'send_group_msg',
+                'params': {'group_id': group_id,
+                           'message': [{'type': 'image',
+                                        'data': {'file': 'cache\\' + fp + '.png'}}]},
+                'echo': 'IMAGE' + 'data/images/cache/' + fp + ".png"}
+
+
+def oblpmh(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
+    global data_list, id_list, blp_list, blpt_list
+    if len(command) < 1 or command[0] == "":
+        text = '用法(oblpmh)：.oblpmh 蓝图名'
+        return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
+            {'type': 'text', 'data': {'text': text}}]}, 'echo': 'apiCallBack'}
+    else:
+        typename = command[0]
+        if typename not in blp_list.keys():
+            typename = max(
+                process.extract(
+                    typename,
+                    blpt_list.keys(),
+                    limit=10),
+                key=lambda x: fuzz.ratio(
+                    typename,
+                    x[0]))[0]
+        blp_id = int(blpt_list[typename])
+        b = blp_list[blp_id]
+        normal_read = requests.get(BASE_BLP_HISTORY.format(blp_id=blp_id, _type='normal', server='tranquility')).json()
+        expand_read = requests.get(BASE_BLP_HISTORY.format(blp_id=blp_id, _type='expand', server='tranquility')).json()
+        fp = '$' + time.strftime('%Y%m%d%H%M%S', time.localtime(time.time())) + \
+             str(random.randint(random.randint(0, 150), random.randint(200, 300)))
+        make_pic(normal_read, expand_read, 'data/images/cache/' + fp + ".png", typename, '宁静')
+        return {'action': 'send_group_msg',
+                'params': {'group_id': group_id,
+                           'message': [{'type': 'image',
+                                        'data': {'file': 'cache\\' + fp + '.png'}}]},
+                'echo': 'IMAGE' + 'data/images/cache/' + fp + ".png"}
+
+
+def make_pic(dat, dat2, path, blp_name, server):
+    d_key = [x['date'] for x in dat['message']['data']]
+    d_price_mat_max = [x['materials']['max'] for x in dat['message']['data']]
+    d_price_mat_min = [x['materials']['min'] for x in dat['message']['data']]
+    d_price_prod_max = [x['products']['max'] for x in dat['message']['data']]
+    d_price_prod_min = [x['products']['min'] for x in dat['message']['data']]
+    d_profit_max = [x['profit']['per_hour']['max'] for x in dat['message']['data']]
+    d_profit_min = [x['profit']['per_hour']['min'] for x in dat['message']['data']]
+    d_key2 = [x['date'] for x in dat2['message']['data']]
+    d_price_mat_max2 = [x['materials']['max'] for x in dat2['message']['data']]
+    d_price_mat_min2 = [x['materials']['min'] for x in dat2['message']['data']]
+    d_price_prod_max2 = [x['products']['max'] for x in dat2['message']['data']]
+    d_price_prod_min2 = [x['products']['min'] for x in dat2['message']['data']]
+    d_profit_max2 = [x['profit']['per_hour']['max'] for x in dat2['message']['data']]
+    d_profit_min2 = [x['profit']['per_hour']['min'] for x in dat2['message']['data']]
+
+    # %matplotlib inline
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+    matplotlib.rc("font", family='Microsoft YaHei')
+    # theme = aquarel.load_theme('arctic_light').set_font(family='SimHei')
+    # theme.apply()
+    figure = plt.figure(figsize=(20, 10), dpi=80)
+
+    # 1
+    ax = plt.subplot(2, 4, 1)
+    plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(8))
+    p1 = ax.plot(d_key, d_price_mat_max, 'r', d_key, d_price_mat_min, 'g')
+    ax.legend(p1, ["材料最高价", "材料最低价"], shadow=False, fancybox="blue")
+    ax.title.set_text('材料价格-常规')
+    # ax.plot(d_key, d_price_mat_min, c='Green')
+    bx = plt.subplot(2, 4, 2)
+    plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(8))
+    p2 = bx.plot(d_key, d_price_prod_max, 'r', d_key, d_price_prod_min, 'g')
+    bx.legend(p2, ['产出最高价', '产出最低价'], shadow=False, fancybox="blue")
+    bx.title.set_text('产出价格-常规')
+    # bx.plot(d_key, d_price_prod_min, c='Green')
+    cx = plt.subplot(2, 4, (3, 4))
+    plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(3))
+    p3 = cx.plot(d_key, d_profit_max, 'r', d_key, d_profit_min, 'g')
+    cx.legend(p3, ['最大收益', '常规收益'], shadow=False, fancybox="blue")
+    cx.title.set_text('收益-常规')
+    # cx.plot(d_key, d_profit_min, c='Green')
+    # theme.apply_transforms()
+
+    # 2
+    ax = plt.subplot(2, 4, 5)
+    plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(8))
+    p1 = ax.plot(d_key2, d_price_mat_max2, 'r', d_key2, d_price_mat_min2, 'g')
+    ax.legend(p1, ["材料最高价", "材料最低价"], shadow=False, fancybox="blue")
+    ax.title.set_text('材料价格-展开')
+    # ax.plot(d_key, d_price_mat_min, c='Green')
+    bx = plt.subplot(2, 4, 6)
+    plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(8))
+    p2 = bx.plot(d_key2, d_price_prod_max2, 'r', d_key2, d_price_prod_min2, 'g')
+    bx.legend(p2, ['产出最高价', '产出最低价'], shadow=False, fancybox="blue")
+    bx.title.set_text('产出价格-展开')
+    # bx.plot(d_key, d_price_prod_min, c='Green')
+    cx = plt.subplot(2, 4, (7, 8))
+    plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(3))
+    p3 = cx.plot(d_key2, d_profit_max2, 'r', d_key2, d_profit_min2, 'g')
+    cx.legend(p3, ['最大收益', '常规收益'], shadow=False, fancybox="blue")
+    cx.title.set_text('收益-展开')
+
+    plt.suptitle(f'蓝图历史价格-{blp_name}-{server}', fontsize=20)
+    figure.savefig(path)
 
 
 def blp_expander(key: int, quantity: int, mat_value: int = 0,

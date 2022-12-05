@@ -127,3 +127,17 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+*test*
+
+*[0-9].png
+
+*.token
+*.bat
+admin.*
+image*
+device.json
+go-cqhttp*
+*.txt
+data/*

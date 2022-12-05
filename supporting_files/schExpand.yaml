@@ -1,0 +1,1868 @@
+65:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2308
+    quantity: 40.0
+    typeId: 2389
+  - materials:
+    - quantity: 6000.0
+      typeId: 2268
+    quantity: 40.0
+    typeId: 3645
+  quantity: 5
+  typeId: 9838
+66:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2309
+    quantity: 40.0
+    typeId: 2390
+  - materials:
+    - quantity: 6000.0
+      typeId: 2268
+    quantity: 40.0
+    typeId: 3645
+  quantity: 5
+  typeId: 9832
+67:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2308
+    quantity: 40.0
+    typeId: 2389
+  - materials:
+    - quantity: 6000.0
+      typeId: 2309
+    quantity: 40.0
+    typeId: 2390
+  quantity: 5
+  typeId: 9830
+68:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2309
+    quantity: 40.0
+    typeId: 2390
+  - materials:
+    - quantity: 6000.0
+      typeId: 2310
+    quantity: 40.0
+    typeId: 3683
+  quantity: 5
+  typeId: 3691
+69:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2311
+    quantity: 40.0
+    typeId: 2392
+  - materials:
+    - quantity: 6000.0
+      typeId: 2310
+    quantity: 40.0
+    typeId: 3683
+  quantity: 5
+  typeId: 2317
+70:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2311
+    quantity: 40.0
+    typeId: 2392
+  - materials:
+    - quantity: 6000.0
+      typeId: 2307
+    quantity: 40.0
+    typeId: 9828
+  quantity: 5
+  typeId: 3697
+71:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2308
+    quantity: 40.0
+    typeId: 2389
+  - materials:
+    - quantity: 6000.0
+      typeId: 2306
+    quantity: 40.0
+    typeId: 2401
+  quantity: 5
+  typeId: 9840
+72:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2267
+    quantity: 40.0
+    typeId: 2398
+  - materials:
+    - quantity: 6000.0
+      typeId: 2268
+    quantity: 40.0
+    typeId: 3645
+  quantity: 5
+  typeId: 2328
+73:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2267
+    quantity: 40.0
+    typeId: 2398
+  - materials:
+    - quantity: 6000.0
+      typeId: 2270
+    quantity: 40.0
+    typeId: 2399
+  quantity: 5
+  typeId: 3689
+74:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2267
+    quantity: 40.0
+    typeId: 2398
+  - materials:
+    - quantity: 6000.0
+      typeId: 2272
+    quantity: 40.0
+    typeId: 2400
+  quantity: 5
+  typeId: 3828
+75:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2270
+    quantity: 40.0
+    typeId: 2399
+  - materials:
+    - quantity: 6000.0
+      typeId: 2272
+    quantity: 40.0
+    typeId: 2400
+  quantity: 5
+  typeId: 44
+76:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2272
+    quantity: 40.0
+    typeId: 2400
+  - materials:
+    - quantity: 6000.0
+      typeId: 2306
+    quantity: 40.0
+    typeId: 2401
+  quantity: 5
+  typeId: 9836
+77:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2306
+    quantity: 40.0
+    typeId: 2401
+  - materials:
+    - quantity: 6000.0
+      typeId: 2307
+    quantity: 40.0
+    typeId: 9828
+  quantity: 5
+  typeId: 9842
+78:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2073
+    quantity: 40.0
+    typeId: 2393
+  - materials:
+    - quantity: 6000.0
+      typeId: 2267
+    quantity: 40.0
+    typeId: 2398
+  quantity: 5
+  typeId: 2463
+79:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2288
+    quantity: 40.0
+    typeId: 2396
+  - materials:
+    - quantity: 6000.0
+      typeId: 2270
+    quantity: 40.0
+    typeId: 2399
+  quantity: 5
+  typeId: 2329
+80:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2305
+    quantity: 40.0
+    typeId: 2397
+  - materials:
+    - quantity: 6000.0
+      typeId: 2307
+    quantity: 40.0
+    typeId: 9828
+  quantity: 5
+  typeId: 2327
+81:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2073
+    quantity: 40.0
+    typeId: 2393
+  - materials:
+    - quantity: 6000.0
+      typeId: 2286
+    quantity: 40.0
+    typeId: 3779
+  quantity: 5
+  typeId: 3775
+82:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2073
+    quantity: 40.0
+    typeId: 2393
+  - materials:
+    - quantity: 6000.0
+      typeId: 2287
+    quantity: 40.0
+    typeId: 2395
+  quantity: 5
+  typeId: 3693
+83:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2287
+    quantity: 40.0
+    typeId: 2395
+  - materials:
+    - quantity: 6000.0
+      typeId: 2286
+    quantity: 40.0
+    typeId: 3779
+  quantity: 5
+  typeId: 15317
+84:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2287
+    quantity: 40.0
+    typeId: 2395
+  - materials:
+    - quantity: 6000.0
+      typeId: 2288
+    quantity: 40.0
+    typeId: 2396
+  quantity: 5
+  typeId: 3725
+85:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2288
+    quantity: 40.0
+    typeId: 2396
+  - materials:
+    - quantity: 6000.0
+      typeId: 2305
+    quantity: 40.0
+    typeId: 2397
+  quantity: 5
+  typeId: 3695
+86:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2073
+    quantity: 40.0
+    typeId: 2393
+  - materials:
+    - quantity: 6000.0
+      typeId: 2268
+    quantity: 40.0
+    typeId: 3645
+  quantity: 5
+  typeId: 2319
+87:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2310
+    quantity: 40.0
+    typeId: 3683
+  - materials:
+    - quantity: 6000.0
+      typeId: 2286
+    quantity: 40.0
+    typeId: 3779
+  quantity: 5
+  typeId: 2312
+88:
+  materials:
+  - materials:
+    - quantity: 6000.0
+      typeId: 2311
+    quantity: 40.0
+    typeId: 2392
+  - materials:
+    - quantity: 6000.0
+      typeId: 2305
+    quantity: 40.0
+    typeId: 2397
+  quantity: 5
+  typeId: 2321
+89:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2309
+      quantity: 80.0
+      typeId: 2390
+    - materials:
+      - quantity: 12000.0
+        typeId: 2310
+      quantity: 80.0
+      typeId: 3683
+    quantity: 10.0
+    typeId: 3691
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2308
+      quantity: 80.0
+      typeId: 2389
+    - materials:
+      - quantity: 12000.0
+        typeId: 2268
+      quantity: 80.0
+      typeId: 3645
+    quantity: 10.0
+    typeId: 9838
+  quantity: 3
+  typeId: 17136
+90:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2311
+      quantity: 80.0
+      typeId: 2392
+    - materials:
+      - quantity: 12000.0
+        typeId: 2310
+      quantity: 80.0
+      typeId: 3683
+    quantity: 10.0
+    typeId: 2317
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2309
+      quantity: 80.0
+      typeId: 2390
+    - materials:
+      - quantity: 12000.0
+        typeId: 2268
+      quantity: 80.0
+      typeId: 3645
+    quantity: 10.0
+    typeId: 9832
+  quantity: 3
+  typeId: 2344
+91:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2311
+      quantity: 80.0
+      typeId: 2392
+    - materials:
+      - quantity: 12000.0
+        typeId: 2307
+      quantity: 80.0
+      typeId: 9828
+    quantity: 10.0
+    typeId: 3697
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2308
+      quantity: 80.0
+      typeId: 2389
+    - materials:
+      - quantity: 12000.0
+        typeId: 2309
+      quantity: 80.0
+      typeId: 2390
+    quantity: 10.0
+    typeId: 9830
+  quantity: 3
+  typeId: 2345
+92:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2310
+      quantity: 80.0
+      typeId: 3683
+    - materials:
+      - quantity: 12000.0
+        typeId: 2286
+      quantity: 80.0
+      typeId: 3779
+    quantity: 10.0
+    typeId: 2312
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2073
+      quantity: 80.0
+      typeId: 2393
+    - materials:
+      - quantity: 12000.0
+        typeId: 2268
+      quantity: 80.0
+      typeId: 3645
+    quantity: 10.0
+    typeId: 2319
+  quantity: 3
+  typeId: 2346
+94:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2311
+      quantity: 80.0
+      typeId: 2392
+    - materials:
+      - quantity: 12000.0
+        typeId: 2305
+      quantity: 80.0
+      typeId: 2397
+    quantity: 10.0
+    typeId: 2321
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2308
+      quantity: 80.0
+      typeId: 2389
+    - materials:
+      - quantity: 12000.0
+        typeId: 2306
+      quantity: 80.0
+      typeId: 2401
+    quantity: 10.0
+    typeId: 9840
+  quantity: 3
+  typeId: 17898
+95:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2311
+      quantity: 80.0
+      typeId: 2392
+    - materials:
+      - quantity: 12000.0
+        typeId: 2310
+      quantity: 80.0
+      typeId: 3683
+    quantity: 10.0
+    typeId: 2317
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2288
+      quantity: 80.0
+      typeId: 2396
+    - materials:
+      - quantity: 12000.0
+        typeId: 2270
+      quantity: 80.0
+      typeId: 2399
+    quantity: 10.0
+    typeId: 2329
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2308
+      quantity: 80.0
+      typeId: 2389
+    - materials:
+      - quantity: 12000.0
+        typeId: 2268
+      quantity: 80.0
+      typeId: 3645
+    quantity: 10.0
+    typeId: 9838
+  quantity: 3
+  typeId: 2348
+96:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2267
+      quantity: 80.0
+      typeId: 2398
+    - materials:
+      - quantity: 12000.0
+        typeId: 2268
+      quantity: 80.0
+      typeId: 3645
+    quantity: 10.0
+    typeId: 2328
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2309
+      quantity: 80.0
+      typeId: 2390
+    - materials:
+      - quantity: 12000.0
+        typeId: 2268
+      quantity: 80.0
+      typeId: 3645
+    quantity: 10.0
+    typeId: 9832
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2272
+      quantity: 80.0
+      typeId: 2400
+    - materials:
+      - quantity: 12000.0
+        typeId: 2306
+      quantity: 80.0
+      typeId: 2401
+    quantity: 10.0
+    typeId: 9836
+  quantity: 3
+  typeId: 2349
+97:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2267
+      quantity: 80.0
+      typeId: 2398
+    - materials:
+      - quantity: 12000.0
+        typeId: 2270
+      quantity: 80.0
+      typeId: 2399
+    quantity: 10.0
+    typeId: 3689
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2272
+      quantity: 80.0
+      typeId: 2400
+    - materials:
+      - quantity: 12000.0
+        typeId: 2306
+      quantity: 80.0
+      typeId: 2401
+    quantity: 10.0
+    typeId: 9836
+  quantity: 3
+  typeId: 9848
+98:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2267
+      quantity: 80.0
+      typeId: 2398
+    - materials:
+      - quantity: 12000.0
+        typeId: 2272
+      quantity: 80.0
+      typeId: 2400
+    quantity: 10.0
+    typeId: 3828
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2306
+      quantity: 80.0
+      typeId: 2401
+    - materials:
+      - quantity: 12000.0
+        typeId: 2307
+      quantity: 80.0
+      typeId: 9828
+    quantity: 10.0
+    typeId: 9842
+  quantity: 3
+  typeId: 2351
+99:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2270
+      quantity: 80.0
+      typeId: 2399
+    - materials:
+      - quantity: 12000.0
+        typeId: 2272
+      quantity: 80.0
+      typeId: 2400
+    quantity: 10.0
+    typeId: 44
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2305
+      quantity: 80.0
+      typeId: 2397
+    - materials:
+      - quantity: 12000.0
+        typeId: 2307
+      quantity: 80.0
+      typeId: 9828
+    quantity: 10.0
+    typeId: 2327
+  quantity: 3
+  typeId: 2352
+100:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2267
+      quantity: 80.0
+      typeId: 2398
+    - materials:
+      - quantity: 12000.0
+        typeId: 2268
+      quantity: 80.0
+      typeId: 3645
+    quantity: 10.0
+    typeId: 2328
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2308
+      quantity: 80.0
+      typeId: 2389
+    - materials:
+      - quantity: 12000.0
+        typeId: 2306
+      quantity: 80.0
+      typeId: 2401
+    quantity: 10.0
+    typeId: 9840
+  quantity: 3
+  typeId: 9834
+102:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2288
+      quantity: 80.0
+      typeId: 2396
+    - materials:
+      - quantity: 12000.0
+        typeId: 2270
+      quantity: 80.0
+      typeId: 2399
+    quantity: 10.0
+    typeId: 2329
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2311
+      quantity: 80.0
+      typeId: 2392
+    - materials:
+      - quantity: 12000.0
+        typeId: 2307
+      quantity: 80.0
+      typeId: 9828
+    quantity: 10.0
+    typeId: 3697
+  quantity: 3
+  typeId: 2354
+103:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2310
+      quantity: 80.0
+      typeId: 3683
+    - materials:
+      - quantity: 12000.0
+        typeId: 2286
+      quantity: 80.0
+      typeId: 3779
+    quantity: 10.0
+    typeId: 2312
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2267
+      quantity: 80.0
+      typeId: 2398
+    - materials:
+      - quantity: 12000.0
+        typeId: 2270
+      quantity: 80.0
+      typeId: 2399
+    quantity: 10.0
+    typeId: 3689
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2306
+      quantity: 80.0
+      typeId: 2401
+    - materials:
+      - quantity: 12000.0
+        typeId: 2307
+      quantity: 80.0
+      typeId: 9828
+    quantity: 10.0
+    typeId: 9842
+  quantity: 3
+  typeId: 9846
+104:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2073
+      quantity: 80.0
+      typeId: 2393
+    - materials:
+      - quantity: 12000.0
+        typeId: 2267
+      quantity: 80.0
+      typeId: 2398
+    quantity: 10.0
+    typeId: 2463
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2287
+      quantity: 80.0
+      typeId: 2395
+    - materials:
+      - quantity: 12000.0
+        typeId: 2288
+      quantity: 80.0
+      typeId: 2396
+    quantity: 10.0
+    typeId: 3725
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2267
+      quantity: 80.0
+      typeId: 2398
+    - materials:
+      - quantity: 12000.0
+        typeId: 2272
+      quantity: 80.0
+      typeId: 2400
+    quantity: 10.0
+    typeId: 3828
+  quantity: 3
+  typeId: 2358
+105:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2287
+      quantity: 80.0
+      typeId: 2395
+    - materials:
+      - quantity: 12000.0
+        typeId: 2288
+      quantity: 80.0
+      typeId: 2396
+    quantity: 10.0
+    typeId: 3725
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2073
+      quantity: 80.0
+      typeId: 2393
+    - materials:
+      - quantity: 12000.0
+        typeId: 2286
+      quantity: 80.0
+      typeId: 3779
+    quantity: 10.0
+    typeId: 3775
+  quantity: 3
+  typeId: 28974
+106:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2073
+      quantity: 80.0
+      typeId: 2393
+    - materials:
+      - quantity: 12000.0
+        typeId: 2287
+      quantity: 80.0
+      typeId: 2395
+    quantity: 10.0
+    typeId: 3693
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2288
+      quantity: 80.0
+      typeId: 2396
+    - materials:
+      - quantity: 12000.0
+        typeId: 2305
+      quantity: 80.0
+      typeId: 2397
+    quantity: 10.0
+    typeId: 3695
+  quantity: 3
+  typeId: 2360
+107:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2311
+      quantity: 80.0
+      typeId: 2392
+    - materials:
+      - quantity: 12000.0
+        typeId: 2305
+      quantity: 80.0
+      typeId: 2397
+    quantity: 10.0
+    typeId: 2321
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2287
+      quantity: 80.0
+      typeId: 2395
+    - materials:
+      - quantity: 12000.0
+        typeId: 2286
+      quantity: 80.0
+      typeId: 3779
+    quantity: 10.0
+    typeId: 15317
+  quantity: 3
+  typeId: 2361
+108:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2288
+      quantity: 80.0
+      typeId: 2396
+    - materials:
+      - quantity: 12000.0
+        typeId: 2270
+      quantity: 80.0
+      typeId: 2399
+    quantity: 10.0
+    typeId: 2329
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2073
+      quantity: 80.0
+      typeId: 2393
+    - materials:
+      - quantity: 12000.0
+        typeId: 2267
+      quantity: 80.0
+      typeId: 2398
+    quantity: 10.0
+    typeId: 2463
+  quantity: 3
+  typeId: 12836
+109:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2310
+      quantity: 80.0
+      typeId: 3683
+    - materials:
+      - quantity: 12000.0
+        typeId: 2286
+      quantity: 80.0
+      typeId: 3779
+    quantity: 10.0
+    typeId: 2312
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2305
+      quantity: 80.0
+      typeId: 2397
+    - materials:
+      - quantity: 12000.0
+        typeId: 2307
+      quantity: 80.0
+      typeId: 9828
+    quantity: 10.0
+    typeId: 2327
+  quantity: 3
+  typeId: 17392
+110:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2288
+      quantity: 80.0
+      typeId: 2396
+    - materials:
+      - quantity: 12000.0
+        typeId: 2305
+      quantity: 80.0
+      typeId: 2397
+    quantity: 10.0
+    typeId: 3695
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2073
+      quantity: 80.0
+      typeId: 2393
+    - materials:
+      - quantity: 12000.0
+        typeId: 2286
+      quantity: 80.0
+      typeId: 3779
+    quantity: 10.0
+    typeId: 3775
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2308
+      quantity: 80.0
+      typeId: 2389
+    - materials:
+      - quantity: 12000.0
+        typeId: 2306
+      quantity: 80.0
+      typeId: 2401
+    quantity: 10.0
+    typeId: 9840
+  quantity: 3
+  typeId: 2366
+111:
+  materials:
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2073
+      quantity: 80.0
+      typeId: 2393
+    - materials:
+      - quantity: 12000.0
+        typeId: 2268
+      quantity: 80.0
+      typeId: 3645
+    quantity: 10.0
+    typeId: 2319
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2309
+      quantity: 80.0
+      typeId: 2390
+    - materials:
+      - quantity: 12000.0
+        typeId: 2310
+      quantity: 80.0
+      typeId: 3683
+    quantity: 10.0
+    typeId: 3691
+  - materials:
+    - materials:
+      - quantity: 12000.0
+        typeId: 2073
+      quantity: 80.0
+      typeId: 2393
+    - materials:
+      - quantity: 12000.0
+        typeId: 2287
+      quantity: 80.0
+      typeId: 2395
+    quantity: 10.0
+    typeId: 3693
+  quantity: 3
+  typeId: 2367
+112:
+  materials:
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2311
+        quantity: 160.0
+        typeId: 2392
+      - materials:
+        - quantity: 24000.0
+          typeId: 2310
+        quantity: 160.0
+        typeId: 3683
+      quantity: 20.0
+      typeId: 2317
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2309
+        quantity: 160.0
+        typeId: 2390
+      - materials:
+        - quantity: 24000.0
+          typeId: 2268
+        quantity: 160.0
+        typeId: 3645
+      quantity: 20.0
+      typeId: 9832
+    quantity: 6.0
+    typeId: 2344
+  - materials:
+    - quantity: 6000.0
+      typeId: 2073
+    quantity: 40.0
+    typeId: 2393
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2267
+        quantity: 160.0
+        typeId: 2398
+      - materials:
+        - quantity: 24000.0
+          typeId: 2270
+        quantity: 160.0
+        typeId: 2399
+      quantity: 20.0
+      typeId: 3689
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2272
+        quantity: 160.0
+        typeId: 2400
+      - materials:
+        - quantity: 24000.0
+          typeId: 2306
+        quantity: 160.0
+        typeId: 2401
+      quantity: 20.0
+      typeId: 9836
+    quantity: 6.0
+    typeId: 9848
+  quantity: 1
+  typeId: 2870
+113:
+  materials:
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2267
+        quantity: 160.0
+        typeId: 2398
+      - materials:
+        - quantity: 24000.0
+          typeId: 2272
+        quantity: 160.0
+        typeId: 2400
+      quantity: 20.0
+      typeId: 3828
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2306
+        quantity: 160.0
+        typeId: 2401
+      - materials:
+        - quantity: 24000.0
+          typeId: 2307
+        quantity: 160.0
+        typeId: 9828
+      quantity: 20.0
+      typeId: 9842
+    quantity: 6.0
+    typeId: 2351
+  - materials:
+    - quantity: 6000.0
+      typeId: 2268
+    quantity: 40.0
+    typeId: 3645
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2287
+        quantity: 160.0
+        typeId: 2395
+      - materials:
+        - quantity: 24000.0
+          typeId: 2288
+        quantity: 160.0
+        typeId: 2396
+      quantity: 20.0
+      typeId: 3725
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2073
+        quantity: 160.0
+        typeId: 2393
+      - materials:
+        - quantity: 24000.0
+          typeId: 2286
+        quantity: 160.0
+        typeId: 3779
+      quantity: 20.0
+      typeId: 3775
+    quantity: 6.0
+    typeId: 28974
+  quantity: 1
+  typeId: 2875
+114:
+  materials:
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2073
+        quantity: 160.0
+        typeId: 2393
+      - materials:
+        - quantity: 24000.0
+          typeId: 2287
+        quantity: 160.0
+        typeId: 2395
+      quantity: 20.0
+      typeId: 3693
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2288
+        quantity: 160.0
+        typeId: 2396
+      - materials:
+        - quantity: 24000.0
+          typeId: 2305
+        quantity: 160.0
+        typeId: 2397
+      quantity: 20.0
+      typeId: 3695
+    quantity: 6.0
+    typeId: 2360
+  - materials:
+    - quantity: 6000.0
+      typeId: 2267
+    quantity: 40.0
+    typeId: 2398
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2309
+        quantity: 160.0
+        typeId: 2390
+      - materials:
+        - quantity: 24000.0
+          typeId: 2310
+        quantity: 160.0
+        typeId: 3683
+      quantity: 20.0
+      typeId: 3691
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2308
+        quantity: 160.0
+        typeId: 2389
+      - materials:
+        - quantity: 24000.0
+          typeId: 2268
+        quantity: 160.0
+        typeId: 3645
+      quantity: 20.0
+      typeId: 9838
+    quantity: 6.0
+    typeId: 17136
+  quantity: 1
+  typeId: 2869
+115:
+  materials:
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2311
+        quantity: 160.0
+        typeId: 2392
+      - materials:
+        - quantity: 24000.0
+          typeId: 2307
+        quantity: 160.0
+        typeId: 9828
+      quantity: 20.0
+      typeId: 3697
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2308
+        quantity: 160.0
+        typeId: 2389
+      - materials:
+        - quantity: 24000.0
+          typeId: 2309
+        quantity: 160.0
+        typeId: 2390
+      quantity: 20.0
+      typeId: 9830
+    quantity: 6.0
+    typeId: 2345
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2270
+        quantity: 160.0
+        typeId: 2399
+      - materials:
+        - quantity: 24000.0
+          typeId: 2272
+        quantity: 160.0
+        typeId: 2400
+      quantity: 20.0
+      typeId: 44
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2305
+        quantity: 160.0
+        typeId: 2397
+      - materials:
+        - quantity: 24000.0
+          typeId: 2307
+        quantity: 160.0
+        typeId: 9828
+      quantity: 20.0
+      typeId: 2327
+    quantity: 6.0
+    typeId: 2352
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2311
+        quantity: 160.0
+        typeId: 2392
+      - materials:
+        - quantity: 24000.0
+          typeId: 2305
+        quantity: 160.0
+        typeId: 2397
+      quantity: 20.0
+      typeId: 2321
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2287
+        quantity: 160.0
+        typeId: 2395
+      - materials:
+        - quantity: 24000.0
+          typeId: 2286
+        quantity: 160.0
+        typeId: 3779
+      quantity: 20.0
+      typeId: 15317
+    quantity: 6.0
+    typeId: 2361
+  quantity: 1
+  typeId: 2872
+116:
+  materials:
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2310
+        quantity: 160.0
+        typeId: 3683
+      - materials:
+        - quantity: 24000.0
+          typeId: 2286
+        quantity: 160.0
+        typeId: 3779
+      quantity: 20.0
+      typeId: 2312
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2073
+        quantity: 160.0
+        typeId: 2393
+      - materials:
+        - quantity: 24000.0
+          typeId: 2268
+        quantity: 160.0
+        typeId: 3645
+      quantity: 20.0
+      typeId: 2319
+    quantity: 6.0
+    typeId: 2346
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2267
+        quantity: 160.0
+        typeId: 2398
+      - materials:
+        - quantity: 24000.0
+          typeId: 2268
+        quantity: 160.0
+        typeId: 3645
+      quantity: 20.0
+      typeId: 2328
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2308
+        quantity: 160.0
+        typeId: 2389
+      - materials:
+        - quantity: 24000.0
+          typeId: 2306
+        quantity: 160.0
+        typeId: 2401
+      quantity: 20.0
+      typeId: 9840
+    quantity: 6.0
+    typeId: 9834
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2288
+        quantity: 160.0
+        typeId: 2396
+      - materials:
+        - quantity: 24000.0
+          typeId: 2270
+        quantity: 160.0
+        typeId: 2399
+      quantity: 20.0
+      typeId: 2329
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2073
+        quantity: 160.0
+        typeId: 2393
+      - materials:
+        - quantity: 24000.0
+          typeId: 2267
+        quantity: 160.0
+        typeId: 2398
+      quantity: 20.0
+      typeId: 2463
+    quantity: 6.0
+    typeId: 12836
+  quantity: 1
+  typeId: 2871
+117:
+  materials:
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2288
+        quantity: 160.0
+        typeId: 2396
+      - materials:
+        - quantity: 24000.0
+          typeId: 2270
+        quantity: 160.0
+        typeId: 2399
+      quantity: 20.0
+      typeId: 2329
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2311
+        quantity: 160.0
+        typeId: 2392
+      - materials:
+        - quantity: 24000.0
+          typeId: 2307
+        quantity: 160.0
+        typeId: 9828
+      quantity: 20.0
+      typeId: 3697
+    quantity: 6.0
+    typeId: 2354
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2310
+        quantity: 160.0
+        typeId: 3683
+      - materials:
+        - quantity: 24000.0
+          typeId: 2286
+        quantity: 160.0
+        typeId: 3779
+      quantity: 20.0
+      typeId: 2312
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2305
+        quantity: 160.0
+        typeId: 2397
+      - materials:
+        - quantity: 24000.0
+          typeId: 2307
+        quantity: 160.0
+        typeId: 9828
+      quantity: 20.0
+      typeId: 2327
+    quantity: 6.0
+    typeId: 17392
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2311
+        quantity: 160.0
+        typeId: 2392
+      - materials:
+        - quantity: 24000.0
+          typeId: 2305
+        quantity: 160.0
+        typeId: 2397
+      quantity: 20.0
+      typeId: 2321
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2308
+        quantity: 160.0
+        typeId: 2389
+      - materials:
+        - quantity: 24000.0
+          typeId: 2306
+        quantity: 160.0
+        typeId: 2401
+      quantity: 20.0
+      typeId: 9840
+    quantity: 6.0
+    typeId: 17898
+  quantity: 1
+  typeId: 2867
+118:
+  materials:
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2311
+        quantity: 160.0
+        typeId: 2392
+      - materials:
+        - quantity: 24000.0
+          typeId: 2310
+        quantity: 160.0
+        typeId: 3683
+      quantity: 20.0
+      typeId: 2317
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2288
+        quantity: 160.0
+        typeId: 2396
+      - materials:
+        - quantity: 24000.0
+          typeId: 2270
+        quantity: 160.0
+        typeId: 2399
+      quantity: 20.0
+      typeId: 2329
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2308
+        quantity: 160.0
+        typeId: 2389
+      - materials:
+        - quantity: 24000.0
+          typeId: 2268
+        quantity: 160.0
+        typeId: 3645
+      quantity: 20.0
+      typeId: 9838
+    quantity: 6.0
+    typeId: 2348
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2288
+        quantity: 160.0
+        typeId: 2396
+      - materials:
+        - quantity: 24000.0
+          typeId: 2305
+        quantity: 160.0
+        typeId: 2397
+      quantity: 20.0
+      typeId: 3695
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2073
+        quantity: 160.0
+        typeId: 2393
+      - materials:
+        - quantity: 24000.0
+          typeId: 2286
+        quantity: 160.0
+        typeId: 3779
+      quantity: 20.0
+      typeId: 3775
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2308
+        quantity: 160.0
+        typeId: 2389
+      - materials:
+        - quantity: 24000.0
+          typeId: 2306
+        quantity: 160.0
+        typeId: 2401
+      quantity: 20.0
+      typeId: 9840
+    quantity: 6.0
+    typeId: 2366
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2310
+        quantity: 160.0
+        typeId: 3683
+      - materials:
+        - quantity: 24000.0
+          typeId: 2286
+        quantity: 160.0
+        typeId: 3779
+      quantity: 20.0
+      typeId: 2312
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2267
+        quantity: 160.0
+        typeId: 2398
+      - materials:
+        - quantity: 24000.0
+          typeId: 2270
+        quantity: 160.0
+        typeId: 2399
+      quantity: 20.0
+      typeId: 3689
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2306
+        quantity: 160.0
+        typeId: 2401
+      - materials:
+        - quantity: 24000.0
+          typeId: 2307
+        quantity: 160.0
+        typeId: 9828
+      quantity: 20.0
+      typeId: 9842
+    quantity: 6.0
+    typeId: 9846
+  quantity: 1
+  typeId: 2868
+119:
+  materials:
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2267
+        quantity: 160.0
+        typeId: 2398
+      - materials:
+        - quantity: 24000.0
+          typeId: 2268
+        quantity: 160.0
+        typeId: 3645
+      quantity: 20.0
+      typeId: 2328
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2309
+        quantity: 160.0
+        typeId: 2390
+      - materials:
+        - quantity: 24000.0
+          typeId: 2268
+        quantity: 160.0
+        typeId: 3645
+      quantity: 20.0
+      typeId: 9832
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2272
+        quantity: 160.0
+        typeId: 2400
+      - materials:
+        - quantity: 24000.0
+          typeId: 2306
+        quantity: 160.0
+        typeId: 2401
+      quantity: 20.0
+      typeId: 9836
+    quantity: 6.0
+    typeId: 2349
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2073
+        quantity: 160.0
+        typeId: 2393
+      - materials:
+        - quantity: 24000.0
+          typeId: 2267
+        quantity: 160.0
+        typeId: 2398
+      quantity: 20.0
+      typeId: 2463
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2287
+        quantity: 160.0
+        typeId: 2395
+      - materials:
+        - quantity: 24000.0
+          typeId: 2288
+        quantity: 160.0
+        typeId: 2396
+      quantity: 20.0
+      typeId: 3725
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2267
+        quantity: 160.0
+        typeId: 2398
+      - materials:
+        - quantity: 24000.0
+          typeId: 2272
+        quantity: 160.0
+        typeId: 2400
+      quantity: 20.0
+      typeId: 3828
+    quantity: 6.0
+    typeId: 2358
+  - materials:
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2073
+        quantity: 160.0
+        typeId: 2393
+      - materials:
+        - quantity: 24000.0
+          typeId: 2268
+        quantity: 160.0
+        typeId: 3645
+      quantity: 20.0
+      typeId: 2319
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2309
+        quantity: 160.0
+        typeId: 2390
+      - materials:
+        - quantity: 24000.0
+          typeId: 2310
+        quantity: 160.0
+        typeId: 3683
+      quantity: 20.0
+      typeId: 3691
+    - materials:
+      - materials:
+        - quantity: 24000.0
+          typeId: 2073
+        quantity: 160.0
+        typeId: 2393
+      - materials:
+        - quantity: 24000.0
+          typeId: 2287
+        quantity: 160.0
+        typeId: 2395
+      quantity: 20.0
+      typeId: 3693
+    quantity: 6.0
+    typeId: 2367
+  quantity: 1
+  typeId: 2876
+121:
+  materials:
+  - quantity: 3000.0
+    typeId: 2268
+  quantity: 20
+  typeId: 3645
+122:
+  materials:
+  - quantity: 3000.0
+    typeId: 2308
+  quantity: 20
+  typeId: 2389
+123:
+  materials:
+  - quantity: 3000.0
+    typeId: 2309
+  quantity: 20
+  typeId: 2390
+124:
+  materials:
+  - quantity: 3000.0
+    typeId: 2310
+  quantity: 20
+  typeId: 3683
+125:
+  materials:
+  - quantity: 3000.0
+    typeId: 2311
+  quantity: 20
+  typeId: 2392
+126:
+  materials:
+  - quantity: 3000.0
+    typeId: 2267
+  quantity: 20
+  typeId: 2398
+127:
+  materials:
+  - quantity: 3000.0
+    typeId: 2270
+  quantity: 20
+  typeId: 2399
+128:
+  materials:
+  - quantity: 3000.0
+    typeId: 2272
+  quantity: 20
+  typeId: 2400
+129:
+  materials:
+  - quantity: 3000.0
+    typeId: 2306
+  quantity: 20
+  typeId: 2401
+130:
+  materials:
+  - quantity: 3000.0
+    typeId: 2307
+  quantity: 20
+  typeId: 9828
+131:
+  materials:
+  - quantity: 3000.0
+    typeId: 2073
+  quantity: 20
+  typeId: 2393
+132:
+  materials:
+  - quantity: 3000.0
+    typeId: 2286
+  quantity: 20
+  typeId: 3779
+133:
+  materials:
+  - quantity: 3000.0
+    typeId: 2287
+  quantity: 20
+  typeId: 2395
+134:
+  materials:
+  - quantity: 3000.0
+    typeId: 2288
+  quantity: 20
+  typeId: 2396
+135:
+  materials:
+  - quantity: 3000.0
+    typeId: 2305
+  quantity: 20
+  typeId: 2397

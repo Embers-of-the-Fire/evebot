@@ -130,8 +130,14 @@
             { ".regex": ".blpmh" },
             { ".regex": "/blpmh"},
             { ".regex": "oblpmh" },
-            { ".regex": ".oblpmh"},
-            { ".regex": "/oblpmh"}
+            { ".regex": ".oblpmh" },
+            { ".regex": "/oblpmh" },
+            { ".regex": "lph" },
+            { ".regex": ".lph" },
+            { ".regex": "/lph" },
+            { ".regex": "olph" },
+            { ".regex": ".olph" },
+            { ".regex": "/olph" }
           ]
         }
       }

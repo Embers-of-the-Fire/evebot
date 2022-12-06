@@ -86,7 +86,11 @@
     ".blpmh": "blpmh",
     "/blpmh": "blpmh",
     ".oblpmh": "oblpmh",
-    "/oblpmh": "oblpmh"
+    "/oblpmh": "oblpmh",
+    "/lph": "lph",
+    ".lph": "lph",
+    "/olph": "olph",
+    ".olph": "olph"
   },
   "guild": {
     ".blp": "blp",

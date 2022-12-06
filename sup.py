@@ -71,6 +71,7 @@ BASE_BLP_HISTORY = 'http://101.34.37.178/blp/market/{blp_id}/{_type}/history/?se
 # corporation lp shop offers
 BASE_COR_LP_SHOP = 'https://esi.evepc.163.com/latest/loyalty/stores/{corporation_id}/offers/'
 COR_LP_MARKET = 'http://101.34.37.178/loyalty/market/corp/{corporation_id}/sorted/?server={server}&from={fm}&amo={amo}'
+LP_HIS_MARKET = 'http://101.34.37.178/loyalty/market/corp/{corp_id}/history/?server={server}'
 # search
 BASE_SEARCH = 'https://esi.evepc.163.com/latest/search/'
 BASE_SEARCH_TQ = 'https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en'
@@ -234,21 +235,41 @@ HELP_TEXT = """=============
 查询功能列表：
   .jita 查询国服伏尔戈市场订单
   .ojita 查询世界服伏尔戈市场订单
+  .prev 查询国服伏尔戈物品历史价格
+  .oprev 查询世界服伏尔戈物品历史价格
   .col 查询国服伏尔戈市场物品组订单
   .ocol 查询世界服伏尔戈市场物品组订单
   .wtb 查询国服特定星域市场订单
   .owtb 查询世界服特定星域市场订单
   .blp 查询蓝图基本属性
-  .mkd 查询物品市场分类
-  .blpe 查询蓝图详细信息
-  .blpem 查询国服伏尔戈市场蓝图基础材料订单
-  .oblpem 查询世界服伏尔戈市场蓝图基础材料订单
-  .blpm 查询国服伏尔戈市场蓝图材料订单
-  .oblpm 查询世界服伏尔戈市场蓝图材料订单
-  .lp 查询国服特定军团伏尔戈市场忠诚点价值（有延迟）
-  .olp 查询世界服特定军团伏尔戈市场忠诚点价值（有延迟）
-  .dogma 查询物品属性
+  .blpm 查询国服伏尔戈市场蓝图材料订单（频道不支持）
+  .oblpm 查询世界服伏尔戈市场蓝图材料订单（频道不支持）
+  .blpe 查询蓝图详细信息（频道不支持）
+  .blpem 查询国服伏尔戈市场蓝图基础材料订单（频道不支持）
+  .oblpem 查询世界服伏尔戈市场蓝图基础材料订单（频道不支持）
+  .blpmh 查询国服伏尔戈市场蓝图材料历史记录（频道不支持）
+  .oblpmh 查询世界服伏尔戈市场蓝图材料历史记录（频道不支持）
+  .acc 计算加速器作用效果（频道不支持）
+  .accm 查询国服加速器价值（频道不支持）
+  .oaccm 查询世界服加速器价值（频道不支持）
+  .sktree 查询物品技能树
+  .lp 查询国服特定军团伏尔戈市场忠诚点价值（有延迟）（频道不支持）
+  .olp 查询世界服特定军团伏尔戈市场忠诚点价值（有延迟）（频道不支持）
+  .lph 查询国服特定军团伏尔戈市场忠诚点价值历史记录（频道不支持）
+  .olph 查询世界服特定军团伏尔戈市场忠诚点价值历史记录（频道不支持）
+  .dogma 查询物品属性（频道不支持）
   .trait 查询物品加成
+  .mkd 查询物品市场分类
+  .sch 查询行星资源
+  .sche 查询行星资源具体制造路线（频道不支持）
+  .oiAll 查询世界服联盟（频道不支持）
+  .iAll 查询国服联盟（频道不支持）
+  .oiCor 查询世界服军团（频道不支持）
+  .iCor 查询国服军团（频道不支持）
+  .oiCha 查询世界服人物（频道不支持）
+  .iCha 查询国服人物（频道不支持）
+  .kb 查询国服kb（频道不支持）
+  .okb 查询世界服kb（频道不支持）
 =====备注=====
 api的“.”可以省略
 直接发送api获取使用方法
@@ -1816,6 +1837,7 @@ def lp(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
 
 
 def lph(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
+    global npc_cor_list
     print('using lph')
     if len(command) < 1 or command[0] == '':
         text = '用法(lph)：.lph npc军团名'
@@ -1832,8 +1854,62 @@ def lph(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
                 ),
                 key=lambda x: fuzz.ratio(cor_name, x[0])
             )[0]
+            corp_id = npc_cor_list[cor_name]
+            dat = requests.get(LP_HIS_MARKET.format(corp_id=corp_id, server='serenity')).json()
+            fp = '$' + time.strftime('%Y%m%d%H%M%S', time.localtime(time.time())) + \
+                 str(random.randint(random.randint(0, 150), random.randint(200, 300)))
+            form_form_lp_h(corp_id, 'data/images/cache/' + fp + ".png", cor_name)
+            return {'action': 'send_group_msg',
+                    'params': {'group_id': group_id,
+                               'message': [{'type': 'image',
+                                            'data': {'file': 'cache\\' + fp + '.png'}}]},
+                    'echo': 'IMAGE' + 'data/images/cache/' + fp + ".png"}
 
 
+def olph(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
+    global npc_cor_list
+    print('using olph')
+    if len(command) < 1 or command[0] == '':
+        text = '用法(olph)：.olph npc军团名'
+        return {'action': 'send_group_msg', 'params': {'group_id': group_id, 'message': [
+            {'type': 'text', 'data': {'text': text}}]}, 'echo': 'apiCallBack'}
+    else:
+        cor_name = command[0]
+        if cor_name in npc_cor_list.keys():
+            pass
+        else:
+            cor_name = max(
+                process.extract(
+                    cor_name, npc_cor_list.keys(), limit=20
+                ),
+                key=lambda x: fuzz.ratio(cor_name, x[0])
+            )[0]
+            corp_id = npc_cor_list[cor_name]
+            dat = requests.get(LP_HIS_MARKET.format(corp_id=corp_id, server='serenity')).json()
+            fp = '$' + time.strftime('%Y%m%d%H%M%S', time.localtime(time.time())) + \
+                 str(random.randint(random.randint(0, 150), random.randint(200, 300)))
+            form_form_lp_h(corp_id, 'data/images/cache/' + fp + ".png", cor_name)
+            return {'action': 'send_group_msg',
+                    'params': {'group_id': group_id,
+                               'message': [{'type': 'image',
+                                            'data': {'file': 'cache\\' + fp + '.png'}}]},
+                    'echo': 'IMAGE' + 'data/images/cache/' + fp + ".png"}
+
+
+def form_form_lp_h(dat, fppath, corp_name):
+    d_key = [x['date'] for x in dat['message']['data']]
+    d_profit_max = [x['max']['profit'] for x in dat['message']['data']]
+    d_profit_min = [x['min']['profit'] for x in dat['message']['data']]
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+    plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+    matplotlib.rc("font", family='Microsoft YaHei')
+    figure = plt.figure(figsize=(20, 10), dpi=80)
+    mp = plt.subplot(1, 1, 1)
+    plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(5))
+    p = mp.plot(d_key, d_profit_max, 'r', d_key, d_profit_min, 'g')
+    mp.legend(p, ['最高收益<isk/lp>', '常规收益<isk/lp>'], shadow=False, fancybox="blue")
+    plt.suptitle(f'LP收益-{corp_name}', fontsize=20)
+    figure.savefig(fppath)
 
 
 def olp(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:

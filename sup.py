@@ -1854,16 +1854,16 @@ def lph(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
                 ),
                 key=lambda x: fuzz.ratio(cor_name, x[0])
             )[0]
-            corp_id = npc_cor_list[cor_name]
-            dat = requests.get(LP_HIS_MARKET.format(corp_id=corp_id, server='serenity')).json()
-            fp = '$' + time.strftime('%Y%m%d%H%M%S', time.localtime(time.time())) + \
-                 str(random.randint(random.randint(0, 150), random.randint(200, 300)))
-            form_form_lp_h(corp_id, 'data/images/cache/' + fp + ".png", cor_name)
-            return {'action': 'send_group_msg',
-                    'params': {'group_id': group_id,
-                               'message': [{'type': 'image',
-                                            'data': {'file': 'cache\\' + fp + '.png'}}]},
-                    'echo': 'IMAGE' + 'data/images/cache/' + fp + ".png"}
+        corp_id = npc_cor_list[cor_name]
+        dat = requests.get(LP_HIS_MARKET.format(corp_id=corp_id, server='serenity')).json()
+        fp = '$' + time.strftime('%Y%m%d%H%M%S', time.localtime(time.time())) + \
+             str(random.randint(random.randint(0, 150), random.randint(200, 300)))
+        form_form_lp_h(dat, 'data/images/cache/' + fp + ".png", cor_name)
+        return {'action': 'send_group_msg',
+                'params': {'group_id': group_id,
+                           'message': [{'type': 'image',
+                                        'data': {'file': 'cache\\' + fp + '.png'}}]},
+                 'echo': 'IMAGE' + 'data/images/cache/' + fp + ".png"}
 
 
 def olph(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
@@ -1884,16 +1884,16 @@ def olph(command: list, group_id: int, *args, **kwargs) -> Union[dict, bool]:
                 ),
                 key=lambda x: fuzz.ratio(cor_name, x[0])
             )[0]
-            corp_id = npc_cor_list[cor_name]
-            dat = requests.get(LP_HIS_MARKET.format(corp_id=corp_id, server='serenity')).json()
-            fp = '$' + time.strftime('%Y%m%d%H%M%S', time.localtime(time.time())) + \
-                 str(random.randint(random.randint(0, 150), random.randint(200, 300)))
-            form_form_lp_h(corp_id, 'data/images/cache/' + fp + ".png", cor_name)
-            return {'action': 'send_group_msg',
-                    'params': {'group_id': group_id,
-                               'message': [{'type': 'image',
-                                            'data': {'file': 'cache\\' + fp + '.png'}}]},
-                    'echo': 'IMAGE' + 'data/images/cache/' + fp + ".png"}
+        corp_id = npc_cor_list[cor_name]
+        dat = requests.get(LP_HIS_MARKET.format(corp_id=corp_id, server='tranquility')).json()
+        fp = '$' + time.strftime('%Y%m%d%H%M%S', time.localtime(time.time())) + \
+             str(random.randint(random.randint(0, 150), random.randint(200, 300)))
+        form_form_lp_h(dat, 'data/images/cache/' + fp + ".png", cor_name)
+        return {'action': 'send_group_msg',
+                'params': {'group_id': group_id,
+                           'message': [{'type': 'image',
+                                        'data': {'file': 'cache\\' + fp + '.png'}}]},
+                'echo': 'IMAGE' + 'data/images/cache/' + fp + ".png"}
 
 
 def form_form_lp_h(dat, fppath, corp_name):
@@ -3629,6 +3629,7 @@ def guild_configure(n, st) -> Union[dict, bool]:
 def configure(js: dict, st) -> Union[str, bool]:
     if not js:
         return False
+    print(js)
     try:
         if js['post_type'] == 'message' and js['message_type'] == 'group':
             # search for function

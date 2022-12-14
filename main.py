@@ -1,5 +1,6 @@
 import json
 import time
+import traceback
 
 import botpy
 import threadpool
@@ -33,6 +34,14 @@ async def send(websocket, request):
         await websocket.send(request)
 
 
+def send_outer(js, ft, ws, loop):
+    print('-Send Wrapper Sending-')
+    loop.run_until_complete(send(
+        ws, sup.configure(
+            js=js, st=ft)
+    ))
+
+
 async def rt(websocket, path):
     global logger, logger2
     print("---Server Activated---")
@@ -55,11 +64,11 @@ async def rt(websocket, path):
             # ft = time.time()
             # tosend = sup.configure(js=r, ws=websocket, st=ft)
             # print(r['group_id'] in logger_list, r['group_id'], type(r['group_id']))
-            task = threadpool.makeRequests(lambda js, ft: loop.run_until_complete(
-                    send(
-                        websocket, sup.configure(
-                            js=js, st=ft))), (r, time.time()))
+            task = threadpool.makeRequests(send_outer, [([r, time.time(), websocket, loop], None)])
+            # task = threadpool.makeRequests(lambda *args: print('get'), ((r, time.time(), websocket), ))
+            # task = threadpool.makeRequests(lambda: print('get'), (None, None))
             tpool.putRequest(task[0])
+            # tpool.wait()
         except ConnectionResetError as e:
             print('connection reset')
             continue
@@ -71,7 +80,9 @@ async def rt(websocket, path):
             print('connection closed')
             break
         except BaseException as e:
+            traceback.print_exc()
             logger2.warning(e)
+    tpool.wait()
 
 
 def re_log(rtm: time.struct_time):
@@ -103,6 +114,7 @@ class GuildBot(botpy.Client):
 async def guild_bot_start():
     async with client as c:
         await c.start(appid="xxx", token="xxx")
+        # pass
 
 
 if __name__ == '__main__':

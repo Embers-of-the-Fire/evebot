@@ -100,9 +100,9 @@ class GuildBot(botpy.Client):
         # print(re_back)
 
 
-# async def guild_bot_start():
-#     async with client as c:
-#         await c.start(appid="xxx", token="xxx")
+async def guild_bot_start():
+    async with client as c:
+        await c.start(appid="xxx", token="xxx")
 
 
 if __name__ == '__main__':
@@ -114,11 +114,11 @@ if __name__ == '__main__':
             logger2, skill_dict, sch_expand_dict, sch_prod_dict_f, sch_prod_dict_e = sup.pre_load()
         server = websockets.serve(rt, 'localhost', 5705)
         print('---Group Bot Server Started---')
-        # intent = botpy.Intents(public_guild_messages=True)
-        # client = GuildBot(intents=intent)
+        intent = botpy.Intents(public_guild_messages=True)
+        client = GuildBot(intents=intent)
         print('---Guild Bot Server Started---')
         asyncio.get_event_loop().run_until_complete(server)
-        # asyncio.get_event_loop().run_until_complete(guild_bot_start())
+        asyncio.get_event_loop().run_until_complete(guild_bot_start())
         asyncio.get_event_loop().run_forever()
     except KeyboardInterrupt as __e:
         print('---end service---')
